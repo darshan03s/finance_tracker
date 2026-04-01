@@ -11,7 +11,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,css,md,html,yaml,mjs}": "prettier --write"
+    "*.{ts,tsx,js,jsx,json,css,md,html,mjs}": "prettier --write"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

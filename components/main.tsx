@@ -9,6 +9,9 @@ import {
 import { Button } from './ui/button';
 import BalanceTrend from './balance-trend';
 import CategoryBreakdown from './category-breakdown';
+import Transactions from './transactions';
+import { Input } from './ui/input';
+import { Filter } from 'lucide-react';
 
 const BalanceCard = () => {
   return (
@@ -146,6 +149,18 @@ const Main = () => {
           <HighestExpenseCategory />
           <MonthlyComparison />
           <LargestExpense />
+        </div>
+
+        <h1 className="text-2xl text-center py-6">Transactions</h1>
+
+        <div className="transactions px-20 space-y-4">
+          <div className="flex items-center gap-4">
+            <Input placeholder="Search your transactions" />
+            <Button>
+              <Filter />
+            </Button>
+          </div>
+          <Transactions />
         </div>
       </div>
     </main>

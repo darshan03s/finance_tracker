@@ -15,28 +15,39 @@ import Transactions from './transactions';
 import { Input } from './ui/input';
 import { Filter } from 'lucide-react';
 import BalanceCard from './balance-card';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
+import AddIncomeDialog from './add-income-dialog';
 
 const IncomeCard = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Income</CardTitle>
-        <CardDescription>This {"month's"} income</CardDescription>
-        <CardAction>
-          <div>
-            <Button size={'xs'} className="text-xs" variant={'outline'}>
-              Add income
-            </Button>
-          </div>
-        </CardAction>
-      </CardHeader>
-      <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-        <p>$500</p>
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Income</CardTitle>
+          <CardDescription>This {"month's"} income</CardDescription>
+          <CardAction>
+            <div>
+              <Button
+                size={'xs'}
+                className="text-xs"
+                variant={'outline'}
+                onClick={() => setOpen(true)}
+              >
+                Add income
+              </Button>
+            </div>
+          </CardAction>
+        </CardHeader>
+        <CardContent className="flex items-center justify-center text-5xl h-full w-full">
+          <p>$500</p>
+        </CardContent>
+      </Card>
+      <AddIncomeDialog open={open} setOpen={setOpen} />
+    </>
   );
 };
 
@@ -119,7 +130,6 @@ const Main = () => {
       const parsed = JSON.parse(data) as FinanceData;
       useFinanceStore.setState({
         balance: parsed.balance,
-        categories: parsed.categories,
         transactions: parsed.transactions
       });
     }

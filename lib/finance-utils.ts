@@ -120,3 +120,45 @@ export function getMonthlyCategoryBreakdown(
 
   return result;
 }
+
+export function getHighestExpenseCategory(
+  transactions: Transaction[],
+  categories: string[],
+  referenceDate: Date = new Date()
+) {
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
+
+  const totals: Record<string, number> = {};
+
+  for (const cat of categories) {
+    totals[cat] = 0;
+  }
+
+  for (const txn of transactions) {
+    if (txn.type !== 'expense') continue;
+
+    const d = new Date(txn.date);
+
+    if (d.getMonth() !== month || d.getFullYear() !== year) continue;
+
+    if (txn.category in totals) {
+      totals[txn.category] += txn.amount;
+    }
+  }
+
+  let maxCategory = '';
+  let maxAmount = 0;
+
+  for (const cat of categories) {
+    if (totals[cat] > maxAmount) {
+      maxAmount = totals[cat];
+      maxCategory = cat;
+    }
+  }
+
+  return {
+    category: maxCategory,
+    amount: maxAmount
+  };
+}

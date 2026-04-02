@@ -21,6 +21,7 @@ import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finan
 import AddIncomeDialog from './add-income-dialog';
 import AddExpenseDialog from './add-expense-dialog';
 import {
+  getHighestExpenseCategory,
   getMonthlyCategoryBreakdown,
   getMonthlyIncomeExpenseTrend,
   getMonthlyTotals
@@ -88,7 +89,7 @@ const ExpenseCard = ({ expense }: { expense: number }) => {
   );
 };
 
-const HighestExpenseCategory = () => {
+const HighestExpenseCategory = ({ data }: { data: { category: string; amount: number } }) => {
   return (
     <Card>
       <CardHeader>
@@ -96,10 +97,16 @@ const HighestExpenseCategory = () => {
         <CardDescription>You spent most on this category</CardDescription>
       </CardHeader>
       <CardContent className="flex items-center justify-center h-full w-full">
-        <div className="flex flex-col gap-1 items-center">
-          <span className="text-2xl">Food</span>
-          <span>$100</span>
-        </div>
+        {data.amount === 0 ? (
+          <span className="text-sm text-muted-foreground">No expenses this month</span>
+        ) : (
+          <div className="flex flex-col gap-1 items-center">
+            <span className="text-2xl">
+              {data.category.charAt(0).toUpperCase() + data.category.slice(1)}
+            </span>
+            <span>${data.amount}</span>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -163,6 +170,7 @@ const Main = () => {
   const incomeCategories = useFinanceStore((s) => s.categories.income);
   const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
   const incomeCategoryData = getMonthlyCategoryBreakdown(transactions, incomeCategories, 'income');
+  const highestExpense = getHighestExpenseCategory(transactions, expenseCategories);
 
   return (
     <main className="pb-4">
@@ -189,7 +197,7 @@ const Main = () => {
         </div>
 
         <div className="insights grid grid-cols-1 sm:grid-cols-3 px-10 gap-4">
-          <HighestExpenseCategory />
+          <HighestExpenseCategory data={highestExpense} />
           <MonthlyComparison />
           <LargestExpense />
         </div>

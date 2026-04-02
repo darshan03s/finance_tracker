@@ -7,6 +7,7 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { Button } from './ui/button';
+import BalanceTrend from './balance-trend';
 
 const BalanceCard = () => {
   return (
@@ -79,6 +80,11 @@ const Main = () => {
         <BalanceCard />
         <IncomeCard />
         <ExpenseCard />
+      </div>
+      <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 py-4 gap-4">
+        <div className="h-72">
+          <BalanceTrend />
+        </div>
       </div>
     </main>
   );

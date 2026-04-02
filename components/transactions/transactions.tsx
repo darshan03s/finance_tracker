@@ -1,58 +1,38 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table';
-import { capitalize } from '@/lib/utils';
+import { Filter } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import TransactionsTable from './transactions-table';
 import { Transaction } from '@/types';
+import { useMemo, useState } from 'react';
+import Fuse from 'fuse.js';
 
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
+  const [search, setSearch] = useState('');
+
+  const fuse = useMemo(() => {
+    return new Fuse(transactions, {
+      keys: ['name', 'category', 'note'],
+      threshold: 0.4
+    });
+  }, [transactions]);
+
+  const filteredTransactions =
+    search.trim() === '' ? transactions : fuse.search(search).map((result) => result.item);
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Date</TableHead>
-          <TableHead>Category</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead>Amount</TableHead>
-          <TableHead>Note</TableHead>
-        </TableRow>
-      </TableHeader>
-
-      <TableBody>
-        {transactions.map((txn, index) => (
-          <TableRow key={index}>
-            <TableCell className="font-medium">{new Date(txn.date).toLocaleDateString()}</TableCell>
-
-            <TableCell>{capitalize(txn.category)}</TableCell>
-
-            <TableCell
-              className={
-                txn.type === 'income'
-                  ? 'text-green-500 font-medium'
-                  : txn.type === 'expense'
-                    ? 'text-red-500 font-medium'
-                    : 'text-blue-500 font-medium'
-              }
-            >
-              {capitalize(txn.type)}
-            </TableCell>
-
-            <TableCell>{capitalize(txn.name)}</TableCell>
-
-            <TableCell>
-              {txn.type === 'income' || txn.type === 'balance' ? '+' : '-'}${txn.amount}
-            </TableCell>
-
-            <TableCell>{txn.note}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <>
+      <div className="flex items-center gap-4">
+        <Input
+          placeholder="Search your transactions"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button>
+          <Filter />
+        </Button>
+      </div>
+      <TransactionsTable transactions={filteredTransactions} />
+    </>
   );
 };
 

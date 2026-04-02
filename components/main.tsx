@@ -3,7 +3,7 @@
 import { Button } from './ui/button';
 import BalanceTrend from './charts/balance-trend';
 import CategoryBreakdown from './charts/category-breakdown';
-import Transactions from './transactions/transactions';
+import TransactionsTable from './transactions/transactions-table';
 import { Input } from './ui/input';
 import { Filter } from 'lucide-react';
 import BalanceCard from './balance-income-expense/balance-card';
@@ -23,6 +23,9 @@ import ExpenseCard from './balance-income-expense/expense-card';
 import HighestExpenseCategory from './insights/highest-expense-category';
 import MonthlyComparison from './insights/monthly-comparison';
 import LargestExpense from './insights/largest-expense';
+import Fuse from 'fuse.js';
+import { useMemo } from 'react';
+import Transactions from './transactions/transactions';
 
 const Main = () => {
   function init() {
@@ -87,12 +90,6 @@ const Main = () => {
         <h1 className="text-2xl text-center py-6">Transactions</h1>
 
         <div className="transactions px-20 space-y-4">
-          <div className="flex items-center gap-4">
-            <Input placeholder="Search your transactions" />
-            <Button>
-              <Filter />
-            </Button>
-          </div>
           <Transactions transactions={transactions} />
         </div>
       </div>

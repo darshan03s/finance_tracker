@@ -7,11 +7,9 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { capitalize } from '@/lib/utils';
-import { useFinanceStore } from '@/stores/finance-store';
+import { Transaction } from '@/types';
 
-const Transactions = () => {
-  const { transactions } = useFinanceStore();
-
+const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   return (
     <Table>
       <TableHeader>

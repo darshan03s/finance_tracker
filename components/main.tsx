@@ -20,8 +20,9 @@ import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import AddIncomeDialog from './add-income-dialog';
 import AddExpenseDialog from './add-expense-dialog';
+import { getMonthlyTotals } from '@/lib/finance-utils';
 
-const IncomeCard = () => {
+const IncomeCard = ({ income }: { income: number }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -44,7 +45,7 @@ const IncomeCard = () => {
           </CardAction>
         </CardHeader>
         <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-          <p>$500</p>
+          <p>${income}</p>
         </CardContent>
       </Card>
       <AddIncomeDialog open={open} setOpen={setOpen} />
@@ -52,7 +53,7 @@ const IncomeCard = () => {
   );
 };
 
-const ExpenseCard = () => {
+const ExpenseCard = ({ expense }: { expense: number }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -75,7 +76,7 @@ const ExpenseCard = () => {
           </CardAction>
         </CardHeader>
         <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-          <p>$200</p>
+          <p>${expense}</p>
         </CardContent>
       </Card>
       <AddExpenseDialog open={open} setOpen={setOpen} />
@@ -150,14 +151,18 @@ const Main = () => {
     init();
   }, []);
 
+  const transactions = useFinanceStore((s) => s.transactions);
+
+  const monthlyTotals = getMonthlyTotals(transactions);
+
   return (
     <main className="pb-4">
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
       <div className="space-y-4">
         <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-3 gap-4 px-10">
           <BalanceCard />
-          <IncomeCard />
-          <ExpenseCard />
+          <IncomeCard income={monthlyTotals.income} />
+          <ExpenseCard expense={monthlyTotals.expense} />
         </div>
 
         <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 gap-4">
@@ -184,7 +189,7 @@ const Main = () => {
               <Filter />
             </Button>
           </div>
-          <Transactions />
+          <Transactions transactions={transactions} />
         </div>
       </div>
     </main>

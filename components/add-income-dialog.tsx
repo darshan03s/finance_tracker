@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { capitalize } from '@/lib/utils';
 
 const AddIncomeDialog = ({
   open,
@@ -95,7 +96,7 @@ const AddIncomeDialog = ({
               <SelectGroup>
                 {categories.income.map((cat) => (
                   <SelectItem value={cat} key={cat}>
-                    {cat.slice(0, 1).toUpperCase().concat(cat.slice(1))}
+                    {capitalize(cat)}
                   </SelectItem>
                 ))}
               </SelectGroup>

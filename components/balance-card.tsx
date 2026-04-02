@@ -13,9 +13,13 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
+import { useFinanceStore } from '@/stores/finance-store';
 
 const BalanceCard = () => {
   const [balanceInput, setInputBalance] = useState('');
+
+  const balance = useFinanceStore((s) => s.balance);
+  const updateBalance = useFinanceStore((s) => s.updateBalance);
 
   function handleBalanceInput(value: string) {
     if (/^\d*\.?\d*$/.test(value)) {
@@ -24,7 +28,8 @@ const BalanceCard = () => {
   }
 
   function handleAddBalance() {
-    // TODO
+    if (!balanceInput) return;
+    updateBalance(Number(balanceInput));
   }
 
   return (
@@ -43,6 +48,7 @@ const BalanceCard = () => {
             />
             <HoverTooltip message="Add balance">
               <Button
+                asChild
                 size={'icon-xs'}
                 className="text-xs"
                 variant={'outline'}
@@ -55,7 +61,7 @@ const BalanceCard = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-        <p>$1000</p>
+        <span>${balance}</span>
       </CardContent>
     </Card>
   );

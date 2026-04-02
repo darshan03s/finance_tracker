@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Card,
   CardAction,
@@ -13,6 +15,9 @@ import Transactions from './transactions';
 import { Input } from './ui/input';
 import { Filter } from 'lucide-react';
 import BalanceCard from './balance-card';
+import { useEffect } from 'react';
+import { LOCALSTORAGE_KEY } from '@/lib/constants';
+import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 
 const IncomeCard = () => {
   return (
@@ -106,6 +111,24 @@ const LargestExpense = () => {
 };
 
 const Main = () => {
+  function init() {
+    const data = localStorage.getItem(LOCALSTORAGE_KEY);
+    if (!data) {
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(defaultFinanceData));
+    } else {
+      const parsed = JSON.parse(data) as FinanceData;
+      useFinanceStore.setState({
+        balance: parsed.balance,
+        categories: parsed.categories,
+        transactions: parsed.transactions
+      });
+    }
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <main className="pb-4">
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>

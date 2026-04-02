@@ -23,6 +23,7 @@ import AddExpenseDialog from './add-expense-dialog';
 import {
   getHighestExpenseCategory,
   getMonthlyCategoryBreakdown,
+  getMonthlyExpenseComparison,
   getMonthlyIncomeExpenseTrend,
   getMonthlyTotals
 } from '@/lib/finance-utils';
@@ -112,17 +113,38 @@ const HighestExpenseCategory = ({ data }: { data: { category: string; amount: nu
   );
 };
 
-const MonthlyComparison = () => {
+const MonthlyComparison = ({
+  data
+}: {
+  data: {
+    currentExpense: number;
+    previousExpense: number;
+    difference: number;
+  };
+}) => {
+  let message = '';
+
+  if (data.previousExpense === 0 && data.currentExpense === 0) {
+    message = 'No expense data available';
+  } else if (data.previousExpense === 0) {
+    message = `You spent $${data.currentExpense} this month`;
+  } else if (data.difference > 0) {
+    message = `You spent $${data.difference} more than last month`;
+  } else if (data.difference < 0) {
+    message = `You spent $${Math.abs(data.difference)} less than last month`;
+  } else {
+    message = `Your spending is the same as last month`;
+  }
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Monthly comparison</CardTitle>
         <CardDescription>Comparison to previous month</CardDescription>
       </CardHeader>
+
       <CardContent className="flex items-center justify-center h-full w-full">
-        <div className="flex flex-col gap-1 items-center">
-          <span className="text-lg">You have spent $200 less this month</span>
-        </div>
+        <span className="text-lg text-center">{message}</span>
       </CardContent>
     </Card>
   );
@@ -171,6 +193,7 @@ const Main = () => {
   const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
   const incomeCategoryData = getMonthlyCategoryBreakdown(transactions, incomeCategories, 'income');
   const highestExpense = getHighestExpenseCategory(transactions, expenseCategories);
+  const expenseComparison = getMonthlyExpenseComparison(transactions);
 
   return (
     <main className="pb-4">
@@ -198,7 +221,7 @@ const Main = () => {
 
         <div className="insights grid grid-cols-1 sm:grid-cols-3 px-10 gap-4">
           <HighestExpenseCategory data={highestExpense} />
-          <MonthlyComparison />
+          <MonthlyComparison data={expenseComparison} />
           <LargestExpense />
         </div>
 

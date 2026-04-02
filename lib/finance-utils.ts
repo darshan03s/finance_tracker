@@ -162,3 +162,44 @@ export function getHighestExpenseCategory(
     amount: maxAmount
   };
 }
+
+export function getMonthlyExpenseComparison(
+  transactions: Transaction[],
+  referenceDate: Date = new Date()
+) {
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
+
+  let prevMonth = month - 1;
+  let prevYear = year;
+
+  if (month === 0) {
+    prevMonth = 11;
+    prevYear = year - 1;
+  }
+
+  let currentExpense = 0;
+  let previousExpense = 0;
+
+  for (const txn of transactions) {
+    if (txn.type !== 'expense') continue;
+
+    const d = new Date(txn.date);
+
+    if (d.getMonth() === month && d.getFullYear() === year) {
+      currentExpense += txn.amount;
+    }
+
+    if (d.getMonth() === prevMonth && d.getFullYear() === prevYear) {
+      previousExpense += txn.amount;
+    }
+  }
+
+  const difference = currentExpense - previousExpense;
+
+  return {
+    currentExpense,
+    previousExpense,
+    difference
+  };
+}

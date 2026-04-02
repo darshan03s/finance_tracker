@@ -1,6 +1,6 @@
 'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import {
   ChartConfig,
@@ -46,6 +46,7 @@ const ChartWrapper = () => {
           axisLine={false}
           tickFormatter={(value) => value.slice(0, 3)}
         />
+        <YAxis tickLine={false} axisLine={false} />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
         <Bar dataKey="balance" fill="var(--color-balance)" radius={0} />

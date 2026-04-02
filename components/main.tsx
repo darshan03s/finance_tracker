@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from './ui/button';
 import BalanceTrend from './balance-trend';
+import CategoryBreakdown from './category-breakdown';
 
 const BalanceCard = () => {
   return (
@@ -76,14 +77,19 @@ const Main = () => {
   return (
     <main>
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
-      <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-3 gap-6 px-10 py-4">
-        <BalanceCard />
-        <IncomeCard />
-        <ExpenseCard />
-      </div>
-      <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 py-4 gap-4">
-        <div className="h-72">
-          <BalanceTrend />
+      <div className="space-y-4">
+        <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-3 gap-4 px-10">
+          <BalanceCard />
+          <IncomeCard />
+          <ExpenseCard />
+        </div>
+        <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 gap-4">
+          <div className="h-72">
+            <BalanceTrend />
+          </div>
+          <div className="h-72">
+            <CategoryBreakdown />
+          </div>
         </div>
       </div>
     </main>

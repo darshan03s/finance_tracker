@@ -17,6 +17,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
           <TableHead>Date</TableHead>
           <TableHead>Category</TableHead>
           <TableHead>Type</TableHead>
+          <TableHead>Name</TableHead>
           <TableHead>Amount</TableHead>
           <TableHead>Note</TableHead>
         </TableRow>
@@ -36,6 +37,8 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
             >
               {capitalize(txn.type)}
             </TableCell>
+
+            <TableCell>{capitalize(txn.name)}</TableCell>
 
             <TableCell>
               {txn.type === 'income' ? '+' : '-'}${txn.amount}

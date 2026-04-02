@@ -32,6 +32,7 @@ const AddExpenseDialog = ({
   const addTransaction = useFinanceStore((s) => s.addTransaction);
   const [transaction, setTransaction] = useState<Transaction>({
     id: '',
+    name: '',
     date: new Date().toISOString(),
     type: 'expense',
     category: '',
@@ -60,6 +61,7 @@ const AddExpenseDialog = ({
     setOpen(false);
     setTransaction({
       id: '',
+      name: '',
       date: new Date().toISOString(),
       type: 'expense',
       category: '',
@@ -77,6 +79,13 @@ const AddExpenseDialog = ({
         </DialogHeader>
 
         <div className="flex flex-col gap-4 mt-4">
+          <Input
+            type="text"
+            placeholder="Name"
+            value={transaction.name}
+            onChange={(e) => handleChange('name', e.target.value)}
+          />
+
           <Input
             type="number"
             placeholder="Amount"

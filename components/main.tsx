@@ -12,27 +12,7 @@ import CategoryBreakdown from './category-breakdown';
 import Transactions from './transactions';
 import { Input } from './ui/input';
 import { Filter } from 'lucide-react';
-
-const BalanceCard = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Balance</CardTitle>
-        <CardDescription>Your total balance</CardDescription>
-        <CardAction>
-          <div>
-            <Button size={'xs'} className="text-xs" variant={'outline'}>
-              Add balance
-            </Button>
-          </div>
-        </CardAction>
-      </CardHeader>
-      <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-        <p>$1000</p>
-      </CardContent>
-    </Card>
-  );
-};
+import BalanceCard from './balance-card';
 
 const IncomeCard = () => {
   return (

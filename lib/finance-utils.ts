@@ -11,6 +11,7 @@ export function getMonthlyTotals(
   let expense = 0;
 
   for (const txn of transactions) {
+    if (txn.type === 'balance') continue;
     const d = new Date(txn.date);
 
     if (d.getMonth() !== month || d.getFullYear() !== year) continue;

@@ -32,7 +32,11 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
 
             <TableCell
               className={
-                txn.type === 'income' ? 'text-green-500 font-medium' : 'text-red-500 font-medium'
+                txn.type === 'income'
+                  ? 'text-green-500 font-medium'
+                  : txn.type === 'expense'
+                    ? 'text-red-500 font-medium'
+                    : 'text-blue-500 font-medium'
               }
             >
               {capitalize(txn.type)}
@@ -41,7 +45,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
             <TableCell>{capitalize(txn.name)}</TableCell>
 
             <TableCell>
-              {txn.type === 'income' ? '+' : '-'}${txn.amount}
+              {txn.type === 'income' || txn.type === 'balance' ? '+' : '-'}${txn.amount}
             </TableCell>
 
             <TableCell>{txn.note}</TableCell>

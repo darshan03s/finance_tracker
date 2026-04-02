@@ -50,7 +50,7 @@ const BalanceCard = () => {
               <Button
                 asChild
                 size={'icon-xs'}
-                className="text-xs"
+                className="text-xs p-1"
                 variant={'outline'}
                 onClick={handleAddBalance}
               >

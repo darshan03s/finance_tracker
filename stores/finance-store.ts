@@ -41,9 +41,21 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
 
       parsed.balance = newBalance;
 
+      const newTransaction: Transaction = {
+        id: crypto.randomUUID(),
+        name: 'Balance Update',
+        date: new Date().toISOString(),
+        type: 'balance',
+        category: 'balance',
+        amount,
+        note: ''
+      };
+
+      parsed.transactions = [newTransaction, ...parsed.transactions];
+
       localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
 
-      return { balance: newBalance };
+      return { balance: newBalance, transactions: [newTransaction, ...state.transactions] };
     });
   },
   addTransaction: (txn: Transaction) => {

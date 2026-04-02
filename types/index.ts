@@ -2,8 +2,8 @@ export type Transaction = {
   id: string;
   name: string;
   date: string;
-  type: 'income' | 'expense';
-  category: Category | string;
+  type: 'income' | 'expense' | 'balance';
+  category: Category | string | 'balance';
   amount: number;
   note: string;
 };

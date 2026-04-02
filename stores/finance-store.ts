@@ -1,5 +1,5 @@
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
-import { ExpenseCategory, IncomeCategory, Transaction } from '@/types';
+import { ExpenseCategory, IncomeCategory, MonthlyBalance, Transaction } from '@/types';
 import { create } from 'zustand';
 
 export type FinanceData = {
@@ -9,15 +9,10 @@ export type FinanceData = {
     expense: ExpenseCategory[];
   };
   transactions: Transaction[];
+  monthlyBalances: MonthlyBalance[];
 };
 
-type FinanceStore = {
-  balance: number;
-  categories: {
-    income: IncomeCategory[];
-    expense: ExpenseCategory[];
-  };
-  transactions: Transaction[];
+type FinanceStore = FinanceData & {
   updateBalance: (newBalance: number) => void;
   addTransaction: (txn: Transaction) => void;
 };
@@ -28,7 +23,8 @@ export const defaultFinanceData: FinanceData = {
     expense: ['food', 'rent', 'entertainment'],
     income: ['salaray', 'freelance']
   },
-  transactions: []
+  transactions: [],
+  monthlyBalances: []
 };
 
 export const useFinanceStore = create<FinanceStore>((set) => ({
@@ -40,6 +36,26 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
       const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
 
       parsed.balance = newBalance;
+
+      const now = new Date();
+      const month = now.getMonth();
+      const year = now.getFullYear();
+
+      if (!parsed.monthlyBalances) parsed.monthlyBalances = [];
+
+      const existingIndex = parsed.monthlyBalances.findIndex(
+        (m) => m.month === month && m.year === year
+      );
+
+      if (existingIndex !== -1) {
+        parsed.monthlyBalances[existingIndex].balance = newBalance;
+      } else {
+        parsed.monthlyBalances.push({
+          month,
+          year,
+          balance: newBalance
+        });
+      }
 
       const newTransaction: Transaction = {
         id: crypto.randomUUID(),
@@ -55,7 +71,11 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
 
       localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
 
-      return { balance: newBalance, transactions: [newTransaction, ...state.transactions] };
+      return {
+        balance: newBalance,
+        transactions: [newTransaction, ...state.transactions],
+        monthlyBalances: parsed.monthlyBalances
+      };
     });
   },
   addTransaction: (txn: Transaction) => {

@@ -18,3 +18,15 @@ export type MonthlyTotals = {
   income: number;
   expense: number;
 };
+
+export type MonthlyBalance = {
+  year: number;
+  month: number;
+  balance: number;
+};
+
+export type ChartData = {
+  month: string;
+  income: number;
+  expense: number;
+};

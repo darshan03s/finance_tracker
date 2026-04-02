@@ -28,3 +28,48 @@ export function getMonthlyTotals(
     expense
   };
 }
+
+export function getMonthlyIncomeExpenseTrend(
+  transactions: Transaction[],
+  referenceYear: number = new Date().getFullYear()
+) {
+  const incomeArr: number[] = new Array(12).fill(0);
+  const expenseArr: number[] = new Array(12).fill(0);
+
+  for (const txn of transactions) {
+    if (txn.type === 'balance') continue;
+
+    const d = new Date(txn.date);
+
+    if (d.getFullYear() !== referenceYear) continue;
+
+    const monthIndex = d.getMonth();
+
+    if (txn.type === 'income') {
+      incomeArr[monthIndex] += txn.amount;
+    } else {
+      expenseArr[monthIndex] += txn.amount;
+    }
+  }
+
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  return monthNames.map((month, i) => ({
+    month,
+    income: incomeArr[i],
+    expense: -expenseArr[i]
+  }));
+}

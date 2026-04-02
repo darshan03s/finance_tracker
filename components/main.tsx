@@ -20,7 +20,7 @@ import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import AddIncomeDialog from './add-income-dialog';
 import AddExpenseDialog from './add-expense-dialog';
-import { getMonthlyTotals } from '@/lib/finance-utils';
+import { getMonthlyIncomeExpenseTrend, getMonthlyTotals } from '@/lib/finance-utils';
 
 const IncomeCard = ({ income }: { income: number }) => {
   const [open, setOpen] = useState(false);
@@ -142,7 +142,8 @@ const Main = () => {
       const parsed = JSON.parse(data) as FinanceData;
       useFinanceStore.setState({
         balance: parsed.balance,
-        transactions: parsed.transactions
+        transactions: parsed.transactions,
+        monthlyBalances: parsed.monthlyBalances || []
       });
     }
   }
@@ -154,6 +155,8 @@ const Main = () => {
   const transactions = useFinanceStore((s) => s.transactions);
 
   const monthlyTotals = getMonthlyTotals(transactions);
+
+  const chartData = getMonthlyIncomeExpenseTrend(transactions);
 
   return (
     <main className="pb-4">
@@ -167,7 +170,7 @@ const Main = () => {
 
         <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 gap-4">
           <div className="h-72">
-            <BalanceTrend />
+            <BalanceTrend chartData={chartData} />
           </div>
           <div className="h-72">
             <CategoryBreakdown />

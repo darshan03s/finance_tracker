@@ -11,30 +11,20 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
-const chartData = [
-  { month: 'January', balance: 186 },
-  { month: 'February', balance: 305 },
-  { month: 'March', balance: 237 },
-  { month: 'April', balance: 73 },
-  { month: 'May', balance: 209 },
-  { month: 'June', balance: 214 },
-  { month: 'July', balance: 300 },
-  { month: 'August', balance: 119 },
-  { month: 'September', balance: 250 },
-  { month: 'October', balance: 50 },
-  { month: 'November', balance: 288 },
-  { month: 'December', balance: 160 }
-];
+import { ChartData } from '@/types';
 
 const chartConfig = {
-  balance: {
-    label: 'Balance',
-    color: '#2563eb'
+  income: {
+    label: 'Income',
+    color: '#22c55e'
+  },
+  expense: {
+    label: 'Expense',
+    color: '#ef4444'
   }
 } satisfies ChartConfig;
 
-const ChartWrapper = () => {
+const ChartWrapper = ({ chartData }: { chartData: ChartData[] }) => {
   return (
     <ChartContainer config={chartConfig} className="h-full w-full">
       <BarChart accessibilityLayer data={chartData}>
@@ -44,18 +34,19 @@ const ChartWrapper = () => {
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tickFormatter={(value) => value}
         />
         <YAxis tickLine={false} axisLine={false} />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="balance" fill="var(--color-balance)" radius={0} />
+        <Bar dataKey="income" fill="var(--color-income)" />
+        <Bar dataKey="expense" fill="var(--color-expense)" />
       </BarChart>
     </ChartContainer>
   );
 };
 
-const BalanceTrend = () => {
+const BalanceTrend = ({ chartData }: { chartData: ChartData[] }) => {
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
@@ -63,7 +54,7 @@ const BalanceTrend = () => {
         <CardDescription>Your balance trends</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 min-h-0">
-        <ChartWrapper />
+        <ChartWrapper chartData={chartData} />
       </CardContent>
     </Card>
   );

@@ -77,6 +77,7 @@ export function getMonthlyIncomeExpenseTrend(
 export function getMonthlyCategoryBreakdown(
   transactions: Transaction[],
   categories: string[],
+  type: 'income' | 'expense' = 'expense',
   referenceYear: number = new Date().getFullYear()
 ) {
   const monthNames = [
@@ -94,7 +95,6 @@ export function getMonthlyCategoryBreakdown(
     'Dec'
   ];
 
-  // initialize structure
   const result = monthNames.map((month) => {
     const base: Record<string, number | string> = { month };
 
@@ -106,7 +106,7 @@ export function getMonthlyCategoryBreakdown(
   });
 
   for (const txn of transactions) {
-    if (txn.type !== 'expense') continue;
+    if (txn.type !== type) continue;
 
     const d = new Date(txn.date);
     if (d.getFullYear() !== referenceYear) continue;

@@ -157,14 +157,12 @@ const Main = () => {
   }, []);
 
   const transactions = useFinanceStore((s) => s.transactions);
-
   const monthlyTotals = getMonthlyTotals(transactions);
-
   const chartData = getMonthlyIncomeExpenseTrend(transactions);
-
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
-
+  const incomeCategories = useFinanceStore((s) => s.categories.income);
   const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
+  const incomeCategoryData = getMonthlyCategoryBreakdown(transactions, incomeCategories, 'income');
 
   return (
     <main className="pb-4">
@@ -181,7 +179,12 @@ const Main = () => {
             <BalanceTrend chartData={chartData} />
           </div>
           <div className="h-72">
-            <CategoryBreakdown chartData={expenseCategoryData} categories={expenseCategories} />
+            <CategoryBreakdown
+              expenseCategoryData={expenseCategoryData}
+              expenseCategories={expenseCategories}
+              incomeCategoryData={incomeCategoryData}
+              incomeCategories={incomeCategories}
+            />
           </div>
         </div>
 

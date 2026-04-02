@@ -1,25 +1,15 @@
 'use client';
 
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
 import { Button } from './ui/button';
-import BalanceTrend from './balance-trend';
-import CategoryBreakdown from './category-breakdown';
-import Transactions from './transactions';
+import BalanceTrend from './charts/balance-trend';
+import CategoryBreakdown from './charts/category-breakdown';
+import Transactions from './transactions/transactions';
 import { Input } from './ui/input';
 import { Filter } from 'lucide-react';
-import BalanceCard from './balance-card';
-import { useEffect, useState } from 'react';
+import BalanceCard from './balance-income-expense/balance-card';
+import { useEffect } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
-import AddIncomeDialog from './add-income-dialog';
-import AddExpenseDialog from './add-expense-dialog';
 import {
   getHighestExpenseCategory,
   getMonthlyCategoryBreakdown,
@@ -27,144 +17,11 @@ import {
   getMonthlyIncomeExpenseTrend,
   getMonthlyTotals
 } from '@/lib/finance-utils';
-
-const IncomeCard = ({ income }: { income: number }) => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Income</CardTitle>
-          <CardDescription>This {"month's"} income</CardDescription>
-          <CardAction>
-            <div>
-              <Button
-                size={'xs'}
-                className="text-xs"
-                variant={'outline'}
-                onClick={() => setOpen(true)}
-              >
-                Add income
-              </Button>
-            </div>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-          <p>${income}</p>
-        </CardContent>
-      </Card>
-      <AddIncomeDialog open={open} setOpen={setOpen} />
-    </>
-  );
-};
-
-const ExpenseCard = ({ expense }: { expense: number }) => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Expense</CardTitle>
-          <CardDescription>This {"month's"} expense</CardDescription>
-          <CardAction>
-            <div>
-              <Button
-                size={'xs'}
-                className="text-xs"
-                variant={'outline'}
-                onClick={() => setOpen(true)}
-              >
-                Add expense
-              </Button>
-            </div>
-          </CardAction>
-        </CardHeader>
-        <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-          <p>${expense}</p>
-        </CardContent>
-      </Card>
-      <AddExpenseDialog open={open} setOpen={setOpen} />
-    </>
-  );
-};
-
-const HighestExpenseCategory = ({ data }: { data: { category: string; amount: number } }) => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Highest Expense Category</CardTitle>
-        <CardDescription>You spent most on this category</CardDescription>
-      </CardHeader>
-      <CardContent className="flex items-center justify-center h-full w-full">
-        {data.amount === 0 ? (
-          <span className="text-sm text-muted-foreground">No expenses this month</span>
-        ) : (
-          <div className="flex flex-col gap-1 items-center">
-            <span className="text-2xl">
-              {data.category.charAt(0).toUpperCase() + data.category.slice(1)}
-            </span>
-            <span>${data.amount}</span>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
-
-const MonthlyComparison = ({
-  data
-}: {
-  data: {
-    currentExpense: number;
-    previousExpense: number;
-    difference: number;
-  };
-}) => {
-  let message = '';
-
-  if (data.previousExpense === 0 && data.currentExpense === 0) {
-    message = 'No expense data available';
-  } else if (data.previousExpense === 0) {
-    message = `You spent $${data.currentExpense} this month`;
-  } else if (data.difference > 0) {
-    message = `You spent $${data.difference} more than last month`;
-  } else if (data.difference < 0) {
-    message = `You spent $${Math.abs(data.difference)} less than last month`;
-  } else {
-    message = `Your spending is the same as last month`;
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Monthly comparison</CardTitle>
-        <CardDescription>Comparison to previous month</CardDescription>
-      </CardHeader>
-
-      <CardContent className="flex items-center justify-center h-full w-full">
-        <span className="text-lg text-center">{message}</span>
-      </CardContent>
-    </Card>
-  );
-};
-
-const LargestExpense = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Largest Expense</CardTitle>
-        <CardDescription>This was your most expensive purchase</CardDescription>
-      </CardHeader>
-      <CardContent className="flex items-center justify-center h-full w-full">
-        <div className="flex flex-col gap-1 items-center">
-          <span className="text-lg">Nike Air Jordan</span>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+import IncomeCard from './balance-income-expense/income-card';
+import ExpenseCard from './balance-income-expense/expense-card';
+import HighestExpenseCategory from './insights/highest-expense-category';
+import MonthlyComparison from './insights/monthly-comparison';
+import LargestExpense from './insights/largest-expense';
 
 const Main = () => {
   function init() {

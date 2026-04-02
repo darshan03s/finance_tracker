@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/card';
 import { ExpenseCategory, IncomeCategory } from '@/types';
 import { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
 

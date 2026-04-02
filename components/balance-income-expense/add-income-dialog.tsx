@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/dialog';
 import { Transaction } from '@/types';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import { useFinanceStore } from '@/stores/finance-store';
 import {
   Select,

@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { HoverTooltip } from './wrappers';
+import { HoverTooltip } from '../wrappers';
 import { useState } from 'react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
 import { useFinanceStore } from '@/stores/finance-store';
 

@@ -73,3 +73,50 @@ export function getMonthlyIncomeExpenseTrend(
     expense: -expenseArr[i]
   }));
 }
+
+export function getMonthlyCategoryBreakdown(
+  transactions: Transaction[],
+  categories: string[],
+  referenceYear: number = new Date().getFullYear()
+) {
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  // initialize structure
+  const result = monthNames.map((month) => {
+    const base: Record<string, number | string> = { month };
+
+    for (const cat of categories) {
+      base[cat] = 0;
+    }
+
+    return base;
+  });
+
+  for (const txn of transactions) {
+    if (txn.type !== 'expense') continue;
+
+    const d = new Date(txn.date);
+    if (d.getFullYear() !== referenceYear) continue;
+
+    const monthIndex = d.getMonth();
+
+    if (txn.category in result[monthIndex]) {
+      (result[monthIndex][txn.category] as number) += txn.amount;
+    }
+  }
+
+  return result;
+}

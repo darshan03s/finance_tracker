@@ -20,7 +20,7 @@ type FinanceStore = FinanceData & {
 export const defaultFinanceData: FinanceData = {
   balance: 0,
   categories: {
-    expense: ['food', 'rent', 'entertainment'],
+    expense: ['food', 'rent', 'misc'],
     income: ['salaray', 'freelance']
   },
   transactions: [],

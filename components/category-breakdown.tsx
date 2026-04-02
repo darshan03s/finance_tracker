@@ -12,29 +12,24 @@ import {
 } from '@/components/ui/chart';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ExpenseCategory } from '@/types';
 
-type ChartData = {
-  month: string;
-  food: number;
-  rent: number;
-  entertainment: number;
-};
+const ChartWrapper = ({
+  chartData,
+  categories
+}: {
+  chartData: Record<string, string | number>[];
+  categories: ExpenseCategory[];
+}) => {
+  const chartConfig: ChartConfig = {};
 
-const chartData: ChartData[] = [
-  { month: 'Jan', food: 800, rent: 1500, entertainment: 400 },
-  { month: 'Feb', food: 700, rent: 1500, entertainment: 350 },
-  { month: 'Mar', food: 900, rent: 1500, entertainment: 500 },
-  { month: 'Apr', food: 850, rent: 1500, entertainment: 300 },
-  { month: 'May', food: 950, rent: 1500, entertainment: 600 }
-];
+  categories.forEach((cat) => {
+    chartConfig[cat] = {
+      label: cat.charAt(0).toUpperCase() + cat.slice(1),
+      color: cat === 'food' ? '#f59e0b' : cat === 'rent' ? '#ef4444' : '#a855f7'
+    };
+  });
 
-const chartConfig = {
-  food: { label: 'Food', color: '#f59e0b' },
-  rent: { label: 'Rent', color: '#ef4444' },
-  entertainment: { label: 'Fun', color: '#a855f7' }
-} satisfies ChartConfig;
-
-const ChartWrapper = () => {
   return (
     <ChartContainer config={chartConfig} className="h-full w-full">
       <BarChart data={chartData}>
@@ -47,15 +42,21 @@ const ChartWrapper = () => {
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
 
-        <Bar dataKey="food" stackId="expense" fill="var(--color-food)" />
-        <Bar dataKey="rent" stackId="expense" fill="var(--color-rent)" />
-        <Bar dataKey="entertainment" stackId="expense" fill="var(--color-entertainment)" />
+        {categories.map((cat) => (
+          <Bar key={cat} dataKey={cat} stackId="expense" fill={`var(--color-${cat})`} />
+        ))}
       </BarChart>
     </ChartContainer>
   );
 };
 
-const CategoryBreakdown = () => {
+const CategoryBreakdown = ({
+  chartData,
+  categories
+}: {
+  chartData: Record<string, string | number>[];
+  categories: ExpenseCategory[];
+}) => {
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
@@ -64,7 +65,7 @@ const CategoryBreakdown = () => {
       </CardHeader>
 
       <CardContent className="flex-1 min-h-0">
-        <ChartWrapper />
+        <ChartWrapper chartData={chartData} categories={categories} />
       </CardContent>
     </Card>
   );

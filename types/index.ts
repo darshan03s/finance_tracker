@@ -8,7 +8,7 @@ export type Transaction = {
   note: string;
 };
 
-export type ExpenseCategory = 'food' | 'rent' | 'entertainment';
+export type ExpenseCategory = 'food' | 'rent' | 'misc';
 
 export type IncomeCategory = 'salaray' | 'freelance';
 

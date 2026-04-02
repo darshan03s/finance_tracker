@@ -20,7 +20,11 @@ import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import AddIncomeDialog from './add-income-dialog';
 import AddExpenseDialog from './add-expense-dialog';
-import { getMonthlyIncomeExpenseTrend, getMonthlyTotals } from '@/lib/finance-utils';
+import {
+  getMonthlyCategoryBreakdown,
+  getMonthlyIncomeExpenseTrend,
+  getMonthlyTotals
+} from '@/lib/finance-utils';
 
 const IncomeCard = ({ income }: { income: number }) => {
   const [open, setOpen] = useState(false);
@@ -158,6 +162,10 @@ const Main = () => {
 
   const chartData = getMonthlyIncomeExpenseTrend(transactions);
 
+  const expenseCategories = useFinanceStore((s) => s.categories.expense);
+
+  const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
+
   return (
     <main className="pb-4">
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
@@ -173,7 +181,7 @@ const Main = () => {
             <BalanceTrend chartData={chartData} />
           </div>
           <div className="h-72">
-            <CategoryBreakdown />
+            <CategoryBreakdown chartData={expenseCategoryData} categories={expenseCategories} />
           </div>
         </div>
 

@@ -203,3 +203,24 @@ export function getMonthlyExpenseComparison(
     difference
   };
 }
+
+export function getLargestExpense(transactions: Transaction[], referenceDate: Date = new Date()) {
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
+
+  let largest: Transaction | null = null;
+
+  for (const txn of transactions) {
+    if (txn.type !== 'expense') continue;
+
+    const d = new Date(txn.date);
+
+    if (d.getMonth() !== month || d.getFullYear() !== year) continue;
+
+    if (!largest || txn.amount > largest.amount) {
+      largest = txn;
+    }
+  }
+
+  return largest;
+}

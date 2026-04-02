@@ -1,16 +1,24 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Transaction } from '@/types';
 
-const LargestExpense = () => {
+const LargestExpense = ({ data }: { data: Transaction | null }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Largest Expense</CardTitle>
-        <CardDescription>This was your most expensive purchase</CardDescription>
+        <CardTitle>Largest Expense this month</CardTitle>
+        <CardDescription>This is your most expensive purchase</CardDescription>
       </CardHeader>
+
       <CardContent className="flex items-center justify-center h-full w-full">
-        <div className="flex flex-col gap-1 items-center">
-          <span className="text-lg">Nike Air Jordan</span>
-        </div>
+        {!data ? (
+          <span className="text-sm text-muted-foreground">No expenses this month</span>
+        ) : (
+          <div className="flex flex-col gap-1 items-center text-center">
+            <span className="text-3xl">{data.name}</span>
+            <span className="text-sm text-muted-foreground">{data.category}</span>
+            <span className="text-xs">${data.amount}</span>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

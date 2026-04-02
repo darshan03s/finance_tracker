@@ -12,6 +12,7 @@ import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import {
   getHighestExpenseCategory,
+  getLargestExpense,
   getMonthlyCategoryBreakdown,
   getMonthlyExpenseComparison,
   getMonthlyIncomeExpenseTrend,
@@ -51,6 +52,7 @@ const Main = () => {
   const incomeCategoryData = getMonthlyCategoryBreakdown(transactions, incomeCategories, 'income');
   const highestExpense = getHighestExpenseCategory(transactions, expenseCategories);
   const expenseComparison = getMonthlyExpenseComparison(transactions);
+  const largestExpense = getLargestExpense(transactions);
 
   return (
     <main className="pb-4">
@@ -79,7 +81,7 @@ const Main = () => {
         <div className="insights grid grid-cols-1 sm:grid-cols-3 px-10 gap-4">
           <HighestExpenseCategory data={highestExpense} />
           <MonthlyComparison data={expenseComparison} />
-          <LargestExpense />
+          <LargestExpense data={largestExpense} />
         </div>
 
         <h1 className="text-2xl text-center py-6">Transactions</h1>

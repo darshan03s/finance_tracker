@@ -73,9 +73,58 @@ const ExpenseCard = () => {
   );
 };
 
+const HighestExpenseCategory = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Highest Expense Category</CardTitle>
+        <CardDescription>You spent most on this category</CardDescription>
+      </CardHeader>
+      <CardContent className="flex items-center justify-center h-full w-full">
+        <div className="flex flex-col gap-1 items-center">
+          <span className="text-2xl">Food</span>
+          <span>$100</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const MonthlyComparison = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Monthly comparison</CardTitle>
+        <CardDescription>Comparison to previous month</CardDescription>
+      </CardHeader>
+      <CardContent className="flex items-center justify-center h-full w-full">
+        <div className="flex flex-col gap-1 items-center">
+          <span className="text-lg">You have spent $200 less this month</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const LargestExpense = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Largest Expense</CardTitle>
+        <CardDescription>This was your most expensive purchase</CardDescription>
+      </CardHeader>
+      <CardContent className="flex items-center justify-center h-full w-full">
+        <div className="flex flex-col gap-1 items-center">
+          <span className="text-lg">Nike Air Jordan</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 const Main = () => {
   return (
-    <main>
+    <main className="pb-4">
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
       <div className="space-y-4">
         <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-3 gap-4 px-10">
@@ -83,6 +132,7 @@ const Main = () => {
           <IncomeCard />
           <ExpenseCard />
         </div>
+
         <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 gap-4">
           <div className="h-72">
             <BalanceTrend />
@@ -90,6 +140,12 @@ const Main = () => {
           <div className="h-72">
             <CategoryBreakdown />
           </div>
+        </div>
+
+        <div className="insights grid grid-cols-1 sm:grid-cols-3 px-10 gap-4">
+          <HighestExpenseCategory />
+          <MonthlyComparison />
+          <LargestExpense />
         </div>
       </div>
     </main>

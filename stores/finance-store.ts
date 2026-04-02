@@ -48,7 +48,7 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   },
   addTransaction: (txn: Transaction) => {
     set((state) => {
-      const updatedTransactions = [...state.transactions, txn];
+      const updatedTransactions = [txn, ...state.transactions];
 
       const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
 

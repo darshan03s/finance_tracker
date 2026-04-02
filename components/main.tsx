@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import AddIncomeDialog from './add-income-dialog';
+import AddExpenseDialog from './add-expense-dialog';
 
 const IncomeCard = () => {
   const [open, setOpen] = useState(false);
@@ -52,23 +53,33 @@ const IncomeCard = () => {
 };
 
 const ExpenseCard = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Expense</CardTitle>
-        <CardDescription>This {"month's"} expense</CardDescription>
-        <CardAction>
-          <div>
-            <Button size={'xs'} className="text-xs" variant={'outline'}>
-              Add expense
-            </Button>
-          </div>
-        </CardAction>
-      </CardHeader>
-      <CardContent className="flex items-center justify-center text-5xl h-full w-full">
-        <p>$200</p>
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Expense</CardTitle>
+          <CardDescription>This {"month's"} expense</CardDescription>
+          <CardAction>
+            <div>
+              <Button
+                size={'xs'}
+                className="text-xs"
+                variant={'outline'}
+                onClick={() => setOpen(true)}
+              >
+                Add expense
+              </Button>
+            </div>
+          </CardAction>
+        </CardHeader>
+        <CardContent className="flex items-center justify-center text-5xl h-full w-full">
+          <p>$200</p>
+        </CardContent>
+      </Card>
+      <AddExpenseDialog open={open} setOpen={setOpen} />
+    </>
   );
 };
 

@@ -126,7 +126,7 @@ const CategoryBreakdown = ({
                 variant={type === 'expense' ? 'default' : 'outline'}
                 onClick={() => setType('expense')}
               >
-                <BanknoteArrowDown />
+                <BanknoteArrowUp />
               </Button>
             </HoverTooltip>
             <HoverTooltip message="Show Income">
@@ -135,7 +135,7 @@ const CategoryBreakdown = ({
                 variant={type === 'income' ? 'default' : 'outline'}
                 onClick={() => setType('income')}
               >
-                <BanknoteArrowUp />
+                <BanknoteArrowDown />
               </Button>
             </HoverTooltip>
           </div>

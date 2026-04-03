@@ -24,6 +24,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
+import { HoverTooltip } from '../wrappers';
 
 const ExpenseChart = ({
   chartData,
@@ -73,7 +74,7 @@ const IncomeChart = ({
   categories.forEach((cat) => {
     chartConfig[cat] = {
       label: cat.charAt(0).toUpperCase() + cat.slice(1),
-      color: cat === 'freelance' ? '#f59e0b' : '#a855f7'
+      color: cat === 'freelance' ? '#10b981' : '#3b82f6'
     };
   });
 
@@ -117,18 +118,22 @@ const CategoryBreakdown = ({
         <CardDescription>{capitalize(type)} by category</CardDescription>
         <CardAction>
           <div className="flex items-center gap-2">
-            <Button
-              variant={type === 'expense' ? 'default' : 'outline'}
-              onClick={() => setType('expense')}
-            >
-              <BanknoteArrowDown />
-            </Button>
-            <Button
-              variant={type === 'income' ? 'default' : 'outline'}
-              onClick={() => setType('income')}
-            >
-              <BanknoteArrowUp />
-            </Button>
+            <HoverTooltip message="Show Expenses">
+              <Button
+                variant={type === 'expense' ? 'default' : 'outline'}
+                onClick={() => setType('expense')}
+              >
+                <BanknoteArrowDown />
+              </Button>
+            </HoverTooltip>
+            <HoverTooltip message="Show Income">
+              <Button
+                variant={type === 'income' ? 'default' : 'outline'}
+                onClick={() => setType('income')}
+              >
+                <BanknoteArrowUp />
+              </Button>
+            </HoverTooltip>
           </div>
         </CardAction>
       </CardHeader>

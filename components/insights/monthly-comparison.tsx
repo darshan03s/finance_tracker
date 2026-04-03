@@ -31,7 +31,11 @@ const MonthlyComparison = ({
       </CardHeader>
 
       <CardContent className="flex items-center justify-center h-full w-full">
-        <span className="text-lg text-center">{message}</span>
+        {message === 'No expense data available' ? (
+          <span className="text-sm text-muted-foreground">{message}</span>
+        ) : (
+          <span className="text-lg text-center">{message}</span>
+        )}
       </CardContent>
     </Card>
   );

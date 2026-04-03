@@ -12,7 +12,7 @@ export const HoverTooltip = ({
 }) => {
   return (
     <Tooltip>
-      <TooltipTrigger>{children}</TooltipTrigger>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
       <TooltipContent side={side}>
         <p>{message}</p>
       </TooltipContent>

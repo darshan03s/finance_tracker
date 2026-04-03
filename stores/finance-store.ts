@@ -16,6 +16,7 @@ type FinanceStore = FinanceData & {
   addTransaction: (txn: Transaction) => void;
   updateTransaction: (txn: Transaction) => void;
   deleteTransaction: (txn: Transaction) => void;
+  resetData: () => void;
 };
 
 export const defaultFinanceData: FinanceData = {
@@ -147,6 +148,16 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
       return {
         transactions: updatedTransactions,
         balance: newBalance
+      };
+    });
+  },
+  resetData: () => {
+    set(() => {
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(defaultFinanceData));
+      return {
+        balance: defaultFinanceData.balance,
+        transactions: defaultFinanceData.transactions,
+        categories: defaultFinanceData.categories
       };
     });
   }

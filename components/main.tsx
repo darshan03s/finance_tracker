@@ -1,6 +1,6 @@
 'use client';
 
-import BalanceTrend from './charts/balance-trend';
+import IncomeExpenseTrend from './charts/income-expense-trend';
 import CategoryBreakdown from './charts/category-breakdown';
 import BalanceCard from './balance-income-expense/balance-card';
 import { useFinanceStore } from '@/stores/finance-store';
@@ -49,7 +49,7 @@ const Main = () => {
 
         <div className="charts grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 px-10 gap-4">
           <div className="h-72">
-            <BalanceTrend chartData={chartData} />
+            <IncomeExpenseTrend chartData={chartData} />
           </div>
           <div className="h-72">
             <CategoryBreakdown

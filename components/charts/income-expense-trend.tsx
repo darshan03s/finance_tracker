@@ -46,12 +46,14 @@ const ChartWrapper = ({ chartData }: { chartData: ChartData[] }) => {
   );
 };
 
-const BalanceTrend = ({ chartData }: { chartData: ChartData[] }) => {
+const IncomeExpenseTrend = ({ chartData }: { chartData: ChartData[] }) => {
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
-        <CardTitle className="text-md sm:text-lg">Balance trend</CardTitle>
-        <CardDescription className="text-xs sm:text-md">Your balance trends</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Income and Expense Trends</CardTitle>
+        <CardDescription className="text-xs sm:text-md">
+          Your income and expense trends
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 min-h-0">
         <ChartWrapper chartData={chartData} />
@@ -60,4 +62,4 @@ const BalanceTrend = ({ chartData }: { chartData: ChartData[] }) => {
   );
 };
 
-export default BalanceTrend;
+export default IncomeExpenseTrend;

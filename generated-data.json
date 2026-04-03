@@ -1,0 +1,594 @@
+{
+  "balance": 50000,
+  "categories": {
+    "income": ["salary", "freelance"],
+    "expense": ["food", "rent", "misc"]
+  },
+  "transactions": [
+    {
+      "id": "a2c08568-6f85-410b-92a8-2f0c5c8d662c",
+      "name": "Movie tickets",
+      "date": "2026-04-01T22:08:31.319Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 992,
+      "note": ""
+    },
+    {
+      "id": "36e97501-67a1-4055-be9b-4cb42134a0d2",
+      "name": "Freelance project",
+      "date": "2026-04-01T14:00:44.205Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 40969,
+      "note": ""
+    },
+    {
+      "id": "48e5884d-e923-41a3-b8f6-965f4f345dab",
+      "name": "Coffee shop",
+      "date": "2026-04-01T03:40:48.107Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 18513,
+      "note": ""
+    },
+    {
+      "id": "95dfadeb-095c-4238-b342-45176dada7e4",
+      "name": "Gym membership",
+      "date": "2026-03-31T14:30:45.189Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 18732,
+      "note": ""
+    },
+    {
+      "id": "b5a43cdf-3672-4c61-8b0e-ec95da1dd2e2",
+      "name": "Electricity bill",
+      "date": "2026-03-31T14:01:05.641Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1847,
+      "note": ""
+    },
+    {
+      "id": "89ec7791-0b9d-48e7-86e5-beecb05911fa",
+      "name": "Grocery shopping",
+      "date": "2026-03-31T03:58:26.708Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 382,
+      "note": ""
+    },
+    {
+      "id": "f5bb08bc-8dab-45ec-b473-b73b2d3b205b",
+      "name": "Gym membership",
+      "date": "2026-03-30T10:34:57.320Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 6601,
+      "note": ""
+    },
+    {
+      "id": "38da7832-f463-44e0-b6e9-4b5a92fc2049",
+      "name": "Zomato dinner",
+      "date": "2026-03-30T02:18:33.452Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 734,
+      "note": ""
+    },
+    {
+      "id": "4f868aee-ee51-4a1e-a451-a2a1f592c79c",
+      "name": "Snacks and drinks",
+      "date": "2026-03-30T02:04:31.937Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 532,
+      "note": ""
+    },
+    {
+      "id": "0d6cb448-3be7-40fb-984c-12400e7e5f60",
+      "name": "Fuel refill",
+      "date": "2026-03-29T22:38:07.764Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1822,
+      "note": ""
+    },
+    {
+      "id": "b7bf3ef7-b929-49a2-8b25-84e2e3f1a991",
+      "name": "Electricity bill",
+      "date": "2026-03-29T17:09:58.274Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 513,
+      "note": ""
+    },
+    {
+      "id": "40829812-47b8-41e5-bf80-7da56b2a751c",
+      "name": "Grocery shopping",
+      "date": "2026-03-29T08:07:43.149Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 9505,
+      "note": ""
+    },
+    {
+      "id": "070558a6-5db2-4140-a509-79becb07b18b",
+      "name": "Bonus payout",
+      "date": "2026-03-28T15:21:59.475Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 46594,
+      "note": ""
+    },
+    {
+      "id": "c1caee57-0396-41ec-833b-e1567f0db32d",
+      "name": "Gym membership",
+      "date": "2026-03-28T12:03:57.898Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 2067,
+      "note": ""
+    },
+    {
+      "id": "ba2c6e5d-8998-4fc8-8f38-18ad34ee5024",
+      "name": "Monthly salary",
+      "date": "2026-03-28T05:34:02.486Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 37360,
+      "note": ""
+    },
+    {
+      "id": "187fce3e-76ef-43eb-a9b7-f518be0cf798",
+      "name": "Uber ride",
+      "date": "2026-03-28T03:49:18.853Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1245,
+      "note": ""
+    },
+    {
+      "id": "ee3d93dc-9c66-4083-835e-17c63482a7cd",
+      "name": "Amazon purchase",
+      "date": "2026-03-27T21:24:26.782Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 280,
+      "note": ""
+    },
+    {
+      "id": "30e38a7a-3fde-40bb-8569-e067c2436158",
+      "name": "Grocery shopping",
+      "date": "2026-03-27T07:13:40.597Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1133,
+      "note": ""
+    },
+    {
+      "id": "191acfd4-e28c-4300-a878-dbaba538a8f4",
+      "name": "Amazon purchase",
+      "date": "2026-03-27T03:28:55.159Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1622,
+      "note": ""
+    },
+    {
+      "id": "0d348a92-4036-4523-960b-ba77a7b00e35",
+      "name": "Gym membership",
+      "date": "2026-03-26T23:37:23.470Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 274,
+      "note": ""
+    },
+    {
+      "id": "11449c56-9f4c-459c-879f-db1ff3053dc8",
+      "name": "Grocery shopping",
+      "date": "2026-03-26T06:58:56.436Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 559,
+      "note": ""
+    },
+    {
+      "id": "dd36a53a-b929-4535-af9e-a2367cf1055b",
+      "name": "Internet recharge",
+      "date": "2026-03-25T20:43:31.983Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 2061,
+      "note": ""
+    },
+    {
+      "id": "5c09fffb-f52f-43aa-95fd-47a9f01b4642",
+      "name": "Snacks and drinks",
+      "date": "2026-03-25T08:41:51.415Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 842,
+      "note": ""
+    },
+    {
+      "id": "4edad882-b190-41c5-97df-1d25f7dd9f36",
+      "name": "Monthly salary",
+      "date": "2026-03-24T22:10:50.792Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 31021,
+      "note": ""
+    },
+    {
+      "id": "fa6ea575-5c13-4480-b11a-f5513a7ca0fc",
+      "name": "Consulting fee",
+      "date": "2026-03-22T21:58:28.998Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 43149,
+      "note": ""
+    },
+    {
+      "id": "5566fca7-90fe-443b-a2a8-150dec0faa97",
+      "name": "Freelance project",
+      "date": "2026-03-21T13:04:02.611Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 16764,
+      "note": ""
+    },
+    {
+      "id": "e00f394b-e02a-434d-8416-c17bbecb63e1",
+      "name": "Zomato dinner",
+      "date": "2026-03-20T05:26:28.011Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 2034,
+      "note": ""
+    },
+    {
+      "id": "645a4ba6-2f03-4836-b6d0-48d9ead1d07a",
+      "name": "Clothing purchase",
+      "date": "2026-03-19T12:57:58.179Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 892,
+      "note": ""
+    },
+    {
+      "id": "acf79c5b-5f09-4757-aa36-3af6c07ae8a0",
+      "name": "Consulting fee",
+      "date": "2026-03-19T12:49:47.885Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 14675,
+      "note": ""
+    },
+    {
+      "id": "8003a559-433a-4d48-8c4f-0464cc08a46c",
+      "name": "Clothing purchase",
+      "date": "2026-03-19T03:12:42.461Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 563,
+      "note": ""
+    },
+    {
+      "id": "f8dd4bee-affa-4fb2-ac1d-a361ad6b512c",
+      "name": "Coffee shop",
+      "date": "2026-03-18T18:53:28.938Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 5174,
+      "note": ""
+    },
+    {
+      "id": "d06f2561-517e-4f65-bb10-dde064f8becf",
+      "name": "Snacks and drinks",
+      "date": "2026-03-18T07:16:41.176Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 135,
+      "note": ""
+    },
+    {
+      "id": "f9640b3c-bb4f-4aed-9a76-260248406fa2",
+      "name": "Gym membership",
+      "date": "2026-03-18T04:40:38.700Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1507,
+      "note": ""
+    },
+    {
+      "id": "1a9ec037-518f-4f82-9f15-3d4eb1dccaec",
+      "name": "Snacks and drinks",
+      "date": "2026-03-18T04:31:40.261Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 215,
+      "note": ""
+    },
+    {
+      "id": "993ed98d-48a9-4f2d-b89e-a1bd7dd09354",
+      "name": "Fuel refill",
+      "date": "2026-03-17T22:00:58.124Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 10070,
+      "note": ""
+    },
+    {
+      "id": "7e55c6ce-15a6-4864-8960-280fb0275e55",
+      "name": "Monthly salary",
+      "date": "2026-03-17T20:20:33.317Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 40877,
+      "note": ""
+    },
+    {
+      "id": "b2d157d1-4295-4672-9343-5492a307b9ba",
+      "name": "Bonus payout",
+      "date": "2026-03-17T17:58:23.985Z",
+      "type": "income",
+      "category": "salary",
+      "amount": 35343,
+      "note": ""
+    },
+    {
+      "id": "98348633-3a96-42f3-b7a9-1b943f92540d",
+      "name": "Amazon purchase",
+      "date": "2026-03-17T01:29:59.105Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 9047,
+      "note": ""
+    },
+    {
+      "id": "61b37218-a2f1-4d31-82ee-ac2821daf16e",
+      "name": "Bonus payout",
+      "date": "2026-03-16T18:35:08.953Z",
+      "type": "income",
+      "category": "salary",
+      "amount": 20326,
+      "note": ""
+    },
+    {
+      "id": "960532db-e4b7-4e7b-b960-2fc8fe975f5e",
+      "name": "Internet recharge",
+      "date": "2026-03-16T17:30:19.688Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 992,
+      "note": ""
+    },
+    {
+      "id": "1533d6d5-749e-4032-888c-04d6adeddbde",
+      "name": "Clothing purchase",
+      "date": "2026-03-16T13:47:44.609Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1241,
+      "note": ""
+    },
+    {
+      "id": "a55b2600-6b1f-4248-85ce-c20cf1d8d237",
+      "name": "Uber ride",
+      "date": "2026-03-16T11:23:06.547Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 986,
+      "note": ""
+    },
+    {
+      "id": "6891384a-7951-4488-962f-0277f475df3a",
+      "name": "Grocery shopping",
+      "date": "2026-03-14T14:19:08.415Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1890,
+      "note": ""
+    },
+    {
+      "id": "24cd0239-2f4e-4bbb-b906-3cd08383c178",
+      "name": "Fuel refill",
+      "date": "2026-03-14T12:25:31.480Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 103,
+      "note": ""
+    },
+    {
+      "id": "67585815-0249-46b6-ab6e-9e23f7a1d665",
+      "name": "Clothing purchase",
+      "date": "2026-03-13T11:55:25.142Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1198,
+      "note": ""
+    },
+    {
+      "id": "2d18cbea-93ab-48dd-84d8-52ba16543057",
+      "name": "Snacks and drinks",
+      "date": "2026-03-13T02:13:06.297Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1737,
+      "note": ""
+    },
+    {
+      "id": "cad23938-84b2-4ab6-864d-a7c6c4f65f89",
+      "name": "Electricity bill",
+      "date": "2026-03-11T02:22:21.752Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 727,
+      "note": ""
+    },
+    {
+      "id": "0fa1ff58-4ff8-41a3-a77c-385fef92b0b7",
+      "name": "Uber ride",
+      "date": "2026-03-10T12:31:20.054Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 612,
+      "note": ""
+    },
+    {
+      "id": "9d8c5c26-843b-4b17-b63c-879fff48a03a",
+      "name": "Movie tickets",
+      "date": "2026-03-10T06:51:40.005Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1236,
+      "note": ""
+    },
+    {
+      "id": "4895c44c-132b-4ab7-b032-6ab48844cae8",
+      "name": "Coffee shop",
+      "date": "2026-03-09T23:37:49.370Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 381,
+      "note": ""
+    },
+    {
+      "id": "0df68a4a-be44-4eb7-b659-a9b46ab18b31",
+      "name": "Electricity bill",
+      "date": "2026-03-09T07:59:31.944Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 6280,
+      "note": ""
+    },
+    {
+      "id": "dd02418f-db1f-4782-9c24-87e93934923a",
+      "name": "Clothing purchase",
+      "date": "2026-03-09T06:32:49.596Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 10576,
+      "note": ""
+    },
+    {
+      "id": "a7277b28-164b-49d0-b50b-0bd5225fef8f",
+      "name": "Grocery shopping",
+      "date": "2026-03-08T09:18:58.706Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1307,
+      "note": ""
+    },
+    {
+      "id": "4f3f697e-137a-45a7-b4ec-06190eea2684",
+      "name": "Electricity bill",
+      "date": "2026-03-08T07:09:53.903Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 2008,
+      "note": ""
+    },
+    {
+      "id": "e24de1cd-635a-4757-bec4-0dc9c5b7f16d",
+      "name": "Consulting fee",
+      "date": "2026-03-06T09:14:08.324Z",
+      "type": "income",
+      "category": "freelance",
+      "amount": 13275,
+      "note": ""
+    },
+    {
+      "id": "5453e1e0-b7a7-483d-8f8a-96e7c43fce36",
+      "name": "Zomato dinner",
+      "date": "2026-03-06T00:27:32.492Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 2092,
+      "note": ""
+    },
+    {
+      "id": "4bad966c-33f8-42af-943b-c39b92473069",
+      "name": "Internet recharge",
+      "date": "2026-03-05T17:36:40.309Z",
+      "type": "expense",
+      "category": "misc",
+      "amount": 1093,
+      "note": ""
+    },
+    {
+      "id": "25d12108-6bd6-4f78-b87d-431e38516d92",
+      "name": "Movie tickets",
+      "date": "2026-03-04T17:59:19.163Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 12786,
+      "note": ""
+    },
+    {
+      "id": "518d311d-eb5a-448c-8a46-ac5aa30b9b5c",
+      "name": "Consulting fee",
+      "date": "2026-03-04T03:47:47.214Z",
+      "type": "income",
+      "category": "salary",
+      "amount": 35007,
+      "note": ""
+    },
+    {
+      "id": "598f3e0f-c7a0-449c-810f-7e106dda44e7",
+      "name": "Gym membership",
+      "date": "2026-03-04T01:38:02.430Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 668,
+      "note": ""
+    },
+    {
+      "id": "9f7f426b-928f-4e5d-a311-56bb4d57f3a6",
+      "name": "Gym membership",
+      "date": "2026-03-03T21:03:04.816Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 9490,
+      "note": ""
+    },
+    {
+      "id": "e7e21f78-c07f-4ac7-9b22-86a34488af6a",
+      "name": "Coffee shop",
+      "date": "2026-03-01T19:28:55.124Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1211,
+      "note": ""
+    },
+    {
+      "id": "7e8e03f7-89d7-486e-9724-3e410a0fcc47",
+      "name": "Internet recharge",
+      "date": "2026-03-01T11:00:24.587Z",
+      "type": "expense",
+      "category": "rent",
+      "amount": 13143,
+      "note": ""
+    },
+    {
+      "id": "c4de04c4-2694-4b1d-b0e4-dffed9980301",
+      "name": "Grocery shopping",
+      "date": "2026-03-01T01:32:19.950Z",
+      "type": "expense",
+      "category": "food",
+      "amount": 1751,
+      "note": ""
+    },
+    {
+      "id": "cd661aa8-e7dd-486b-b1bd-fff1b06e8c58",
+      "name": "Balance Update",
+      "date": "2026-03-01T00:00:00.000Z",
+      "type": "balance",
+      "category": "balance",
+      "amount": 50000,
+      "note": ""
+    }
+  ]
+}

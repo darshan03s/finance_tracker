@@ -13,9 +13,11 @@ import { Pencil, Trash } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import EditTransactionDialog from './edit-transactions';
+import { useFinanceStore } from '@/stores/finance-store';
 
 const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
   const role = useRoleStore((s) => s.role);
+  const deleteTransaction = useFinanceStore((s) => s.deleteTransaction);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
 
@@ -31,7 +33,7 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
   }
 
   function handleDeleteTransaction(txn: Transaction) {
-    // TODO
+    deleteTransaction(txn);
   }
 
   return (
@@ -94,13 +96,15 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
 
             {role === 'admin' && (
               <TableCell>
-                <Button
-                  variant="destructive"
-                  size="icon-sm"
-                  onClick={() => handleDeleteTransaction(txn)}
-                >
-                  <Trash />
-                </Button>
+                {txn.type === 'balance' ? null : (
+                  <Button
+                    variant="destructive"
+                    size="icon-sm"
+                    onClick={() => handleDeleteTransaction(txn)}
+                  >
+                    <Trash />
+                  </Button>
+                )}
               </TableCell>
             )}
           </TableRow>

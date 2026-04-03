@@ -69,6 +69,7 @@ const AddIncomeDialog = ({
       amount: 0,
       note: ''
     });
+    useFinanceStore.setState({ categoryBreakdownChartType: 'income' });
   };
 
   return (

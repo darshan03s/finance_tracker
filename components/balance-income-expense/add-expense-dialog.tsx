@@ -68,6 +68,7 @@ const AddExpenseDialog = ({
       amount: 0,
       note: ''
     });
+    useFinanceStore.setState({ categoryBreakdownChartType: 'expense' });
   };
 
   return (

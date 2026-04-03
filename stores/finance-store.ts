@@ -13,6 +13,7 @@ export type FinanceData = {
 };
 
 type FinanceStore = FinanceData & {
+  categoryBreakdownChartType: 'expense' | 'income';
   updateBalance: (newBalance: number) => void;
   addTransaction: (txn: Transaction) => void;
   updateTransaction: (txn: Transaction) => void;
@@ -33,7 +34,7 @@ export const useFinanceStore = create<FinanceStore>()(
   persist(
     (set) => ({
       ...defaultFinanceData,
-
+      categoryBreakdownChartType: 'expense',
       updateBalance: (amount: number) => {
         set((state) => {
           const newBalance = state.balance + amount;

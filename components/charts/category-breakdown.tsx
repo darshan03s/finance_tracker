@@ -25,6 +25,7 @@ import { Button } from '../ui/button';
 import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
 import { HoverTooltip } from '../wrappers';
+import { useFinanceStore } from '@/stores/finance-store';
 
 const ExpenseChart = ({
   chartData,
@@ -109,22 +110,22 @@ const CategoryBreakdown = ({
   incomeCategoryData: Record<string, string | number>[];
   incomeCategories: IncomeCategory[];
 }) => {
-  const [type, setType] = useState<'expense' | 'income'>('expense');
+  const categoryBreakdownChartType = useFinanceStore((s) => s.categoryBreakdownChartType);
 
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
         <CardTitle className="text-md sm:text-lg">Category Breakdown</CardTitle>
         <CardDescription className="text-xs sm:text-md">
-          {capitalize(type)} by category
+          {capitalize(categoryBreakdownChartType)} by category
         </CardDescription>
         <CardAction>
           <div className="flex items-center gap-2">
             <HoverTooltip message="Show Expenses">
               <Button
                 size={'icon-xs'}
-                variant={type === 'expense' ? 'default' : 'outline'}
-                onClick={() => setType('expense')}
+                variant={categoryBreakdownChartType === 'expense' ? 'default' : 'outline'}
+                onClick={() => useFinanceStore.setState({ categoryBreakdownChartType: 'expense' })}
               >
                 <BanknoteArrowUp />
               </Button>
@@ -132,8 +133,8 @@ const CategoryBreakdown = ({
             <HoverTooltip message="Show Income">
               <Button
                 size={'icon-xs'}
-                variant={type === 'income' ? 'default' : 'outline'}
-                onClick={() => setType('income')}
+                variant={categoryBreakdownChartType === 'income' ? 'default' : 'outline'}
+                onClick={() => useFinanceStore.setState({ categoryBreakdownChartType: 'income' })}
               >
                 <BanknoteArrowDown />
               </Button>
@@ -143,7 +144,7 @@ const CategoryBreakdown = ({
       </CardHeader>
 
       <CardContent className="flex-1 min-h-0">
-        {type === 'expense' ? (
+        {categoryBreakdownChartType === 'expense' ? (
           <ExpenseChart chartData={expenseCategoryData} categories={expenseCategories} />
         ) : (
           <IncomeChart chartData={incomeCategoryData} categories={incomeCategories} />

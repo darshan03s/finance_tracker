@@ -9,8 +9,8 @@ import {
 import { Button } from '../ui/button';
 import { FileBraces } from 'lucide-react';
 import { FinanceData, useFinanceStore } from '@/stores/finance-store';
-import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { useRef } from 'react';
+import { LocalStorage } from '@/lib/local-storage-utils';
 
 const ManageData = () => {
   const resetData = useFinanceStore((s) => s.resetData);
@@ -21,7 +21,7 @@ const ManageData = () => {
   }
 
   function handleExportData() {
-    const data = localStorage.getItem(LOCALSTORAGE_KEY);
+    const data = LocalStorage.getData();
 
     const blob = new Blob([data!], {
       type: 'application/json'
@@ -52,7 +52,7 @@ const ManageData = () => {
       const text = await file.text();
       const parsed = JSON.parse(text) as FinanceData;
 
-      localStorage.setItem(LOCALSTORAGE_KEY, text);
+      LocalStorage.setData(text);
 
       useFinanceStore.setState({
         balance: parsed.balance,

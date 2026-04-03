@@ -1,5 +1,5 @@
-import { LOCALSTORAGE_KEY } from '@/lib/constants';
-import { ExpenseCategory, IncomeCategory, MonthlyBalance, Transaction } from '@/types';
+import { LocalStorage } from '@/lib/local-storage-utils';
+import { ExpenseCategory, IncomeCategory, Transaction } from '@/types';
 import { create } from 'zustand';
 
 export type FinanceData = {
@@ -34,10 +34,6 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
     set((state) => {
       const newBalance = state.balance + amount;
 
-      const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
-
-      parsed.balance = newBalance;
-
       const newTransaction: Transaction = {
         id: crypto.randomUUID(),
         name: 'Balance Update',
@@ -48,9 +44,7 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
         note: ''
       };
 
-      parsed.transactions = [newTransaction, ...parsed.transactions];
-
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
+      LocalStorage.updateBalance(newBalance, newTransaction);
 
       return {
         balance: newBalance,
@@ -62,20 +56,15 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
     set((state) => {
       const updatedTransactions = [txn, ...state.transactions];
 
-      const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
-
       let newBalance = state.balance;
 
-      parsed.transactions = updatedTransactions;
       if (txn.type === 'income') {
-        parsed.balance = parsed.balance + txn.amount;
         newBalance = newBalance + txn.amount;
       } else if (txn.type === 'expense') {
-        parsed.balance = parsed.balance - txn.amount;
         newBalance = newBalance - txn.amount;
       }
 
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
+      LocalStorage.updateTransactions(newBalance, updatedTransactions);
 
       return {
         transactions: updatedTransactions,
@@ -85,8 +74,6 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   },
   updateTransaction: (updatedTxn: Transaction) => {
     set((state) => {
-      const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
-
       const existingIndex = state.transactions.findIndex((t) => t.id === updatedTxn.id);
       if (existingIndex === -1) return state;
 
@@ -96,26 +83,20 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
 
       if (oldTxn.type === 'income') {
         newBalance -= oldTxn.amount;
-        parsed.balance -= oldTxn.amount;
       } else if (oldTxn.type === 'expense') {
         newBalance += oldTxn.amount;
-        parsed.balance += oldTxn.amount;
       }
 
       if (updatedTxn.type === 'income') {
         newBalance += updatedTxn.amount;
-        parsed.balance += updatedTxn.amount;
       } else if (updatedTxn.type === 'expense') {
         newBalance -= updatedTxn.amount;
-        parsed.balance -= updatedTxn.amount;
       }
 
       const updatedTransactions = [...state.transactions];
       updatedTransactions[existingIndex] = updatedTxn;
 
-      parsed.transactions = updatedTransactions;
-
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
+      LocalStorage.updateTransactions(newBalance, updatedTransactions);
 
       return {
         transactions: updatedTransactions,
@@ -127,23 +108,17 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
     set((state) => {
       if (txn.type === 'balance') return state;
 
-      const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
-
       let newBalance = state.balance;
 
       if (txn.type === 'income') {
         newBalance -= txn.amount;
-        parsed.balance -= txn.amount;
       } else if (txn.type === 'expense') {
         newBalance += txn.amount;
-        parsed.balance += txn.amount;
       }
 
       const updatedTransactions = state.transactions.filter((t) => t.id !== txn.id);
 
-      parsed.transactions = updatedTransactions;
-
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
+      LocalStorage.updateTransactions(newBalance, updatedTransactions);
 
       return {
         transactions: updatedTransactions,
@@ -153,12 +128,12 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
   },
   resetData: () => {
     set(() => {
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(defaultFinanceData));
       return {
         balance: defaultFinanceData.balance,
         transactions: defaultFinanceData.transactions,
         categories: defaultFinanceData.categories
       };
     });
+    LocalStorage.reset();
   }
 }));

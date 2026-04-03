@@ -4,7 +4,6 @@ import BalanceTrend from './charts/balance-trend';
 import CategoryBreakdown from './charts/category-breakdown';
 import BalanceCard from './balance-income-expense/balance-card';
 import { useEffect } from 'react';
-import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { defaultFinanceData, FinanceData, useFinanceStore } from '@/stores/finance-store';
 import {
   getHighestExpenseCategory,
@@ -22,12 +21,13 @@ import HighestExpenseCategory from './insights/highest-expense-category';
 import MonthlyComparison from './insights/monthly-comparison';
 import LargestExpense from './insights/largest-expense';
 import Transactions from './transactions/transactions';
+import { LocalStorage } from '@/lib/local-storage-utils';
 
 const Main = () => {
   function init() {
-    const data = localStorage.getItem(LOCALSTORAGE_KEY);
+    const data = LocalStorage.getData();
     if (!data) {
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(defaultFinanceData));
+      LocalStorage.setData(JSON.stringify(defaultFinanceData));
     } else {
       const parsed = JSON.parse(data) as FinanceData;
       useFinanceStore.setState({

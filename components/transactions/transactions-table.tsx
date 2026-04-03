@@ -7,13 +7,31 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { capitalize } from '@/lib/utils';
+import { useRoleStore } from '@/stores/role-store';
 import { Transaction } from '@/types';
+import { Pencil, Trash } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useState } from 'react';
+import EditTransactionDialog from './edit-transactions';
 
 const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
+  const role = useRoleStore((s) => s.role);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+
   if (transactions.length === 0) {
     return (
       <div className="text-center text-sm text-muted-foreground py-6">No transactions found</div>
     );
+  }
+
+  function handleEditTransaction(txn: Transaction) {
+    setEditDialogOpen(true);
+    setEditingTransaction(txn);
+  }
+
+  function handleDeleteTransaction(txn: Transaction) {
+    // TODO
   }
 
   return (
@@ -26,10 +44,12 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
           <TableHead>Name</TableHead>
           <TableHead>Amount</TableHead>
           <TableHead>Note</TableHead>
+          {role === 'admin' && <TableHead>Edit</TableHead>}
+          {role === 'admin' && <TableHead>Delete</TableHead>}
         </TableRow>
       </TableHeader>
 
-      <TableBody className="text-xs lg:text-base">
+      <TableBody className="text-xs lg:text-[13px]">
         {transactions.map((txn, index) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{new Date(txn.date).toLocaleDateString()}</TableCell>
@@ -55,9 +75,45 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
             </TableCell>
 
             <TableCell>{txn.note}</TableCell>
+
+            {role === 'admin' && (
+              <TableCell>
+                {txn.type === 'balance' ? null : (
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() => {
+                      handleEditTransaction(txn);
+                    }}
+                  >
+                    <Pencil />
+                  </Button>
+                )}
+              </TableCell>
+            )}
+
+            {role === 'admin' && (
+              <TableCell>
+                <Button
+                  variant="destructive"
+                  size="icon-sm"
+                  onClick={() => handleDeleteTransaction(txn)}
+                >
+                  <Trash />
+                </Button>
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>
+      {editingTransaction && (
+        <EditTransactionDialog
+          key={editingTransaction.id}
+          open={editDialogOpen}
+          setOpen={setEditDialogOpen}
+          txn={editingTransaction}
+        />
+      )}
     </Table>
   );
 };

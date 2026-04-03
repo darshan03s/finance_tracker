@@ -15,6 +15,8 @@ export type FinanceData = {
 type FinanceStore = FinanceData & {
   updateBalance: (newBalance: number) => void;
   addTransaction: (txn: Transaction) => void;
+  updateTransaction: (txn: Transaction) => void;
+  deleteTransaction: (txn: Transaction) => void;
 };
 
 export const defaultFinanceData: FinanceData = {
@@ -102,5 +104,52 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
         balance: newBalance
       };
     });
+  },
+  updateTransaction: (updatedTxn: Transaction) => {
+    set((state) => {
+      const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
+
+      const existingIndex = state.transactions.findIndex((t) => t.id === updatedTxn.id);
+      if (existingIndex === -1) return state;
+
+      const oldTxn = state.transactions[existingIndex];
+
+      let newBalance = state.balance;
+
+      // ---- 1. REMOVE old transaction effect ----
+      if (oldTxn.type === 'income') {
+        newBalance -= oldTxn.amount;
+        parsed.balance -= oldTxn.amount;
+      } else if (oldTxn.type === 'expense') {
+        newBalance += oldTxn.amount;
+        parsed.balance += oldTxn.amount;
+      }
+
+      // ---- 2. APPLY updated transaction effect ----
+      if (updatedTxn.type === 'income') {
+        newBalance += updatedTxn.amount;
+        parsed.balance += updatedTxn.amount;
+      } else if (updatedTxn.type === 'expense') {
+        newBalance -= updatedTxn.amount;
+        parsed.balance -= updatedTxn.amount;
+      }
+
+      // ---- 3. Update transactions array ----
+      const updatedTransactions = [...state.transactions];
+      updatedTransactions[existingIndex] = updatedTxn;
+
+      parsed.transactions = updatedTransactions;
+
+      // ---- 4. Persist ----
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(parsed));
+
+      return {
+        transactions: updatedTransactions,
+        balance: newBalance
+      };
+    });
+  },
+  deleteTransaction: (txn: Transaction) => {
+    // TODO
   }
 }));

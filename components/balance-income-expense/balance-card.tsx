@@ -16,20 +16,21 @@ import { Plus } from 'lucide-react';
 import { useFinanceStore } from '@/stores/finance-store';
 
 const BalanceCard = () => {
-  const [balanceInput, setInputBalance] = useState('');
+  const [balanceInput, setBalanceInput] = useState('');
 
   const balance = useFinanceStore((s) => s.balance);
   const updateBalance = useFinanceStore((s) => s.updateBalance);
 
   function handleBalanceInput(value: string) {
     if (/^\d*\.?\d*$/.test(value)) {
-      setInputBalance(value);
+      setBalanceInput(value);
     }
   }
 
   function handleAddBalance() {
     if (!balanceInput) return;
     updateBalance(Number(balanceInput));
+    setBalanceInput('');
   }
 
   return (

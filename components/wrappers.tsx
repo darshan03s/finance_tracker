@@ -12,7 +12,9 @@ export const HoverTooltip = ({
 }) => {
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipTrigger asChild className="cursor-pointer">
+        {children}
+      </TooltipTrigger>
       <TooltipContent side={side}>
         <p>{message}</p>
       </TooltipContent>

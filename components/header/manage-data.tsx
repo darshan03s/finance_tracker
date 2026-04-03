@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import { FileBraces } from 'lucide-react';
 import { FinanceData, useFinanceStore } from '@/stores/finance-store';
 import { useRef } from 'react';
-import { LocalStorage } from '@/lib/local-storage-utils';
+import { LOCALSTORAGE_KEY } from '@/lib/constants';
 
 const ManageData = () => {
   const resetData = useFinanceStore((s) => s.resetData);
@@ -21,8 +21,7 @@ const ManageData = () => {
   }
 
   function handleExportData() {
-    const data = LocalStorage.getData();
-
+    const data = localStorage.getItem(LOCALSTORAGE_KEY);
     const blob = new Blob([data!], {
       type: 'application/json'
     });
@@ -31,7 +30,7 @@ const ManageData = () => {
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = `finance_tracker_data_${new Date().toISOString()}`;
+    link.download = `finance_tracker_data_${new Date().toISOString()}.json`;
 
     document.body.appendChild(link);
     link.click();
@@ -52,13 +51,13 @@ const ManageData = () => {
       const text = await file.text();
       const parsed = JSON.parse(text) as FinanceData;
 
-      LocalStorage.setData(text);
-
       useFinanceStore.setState({
         balance: parsed.balance,
         transactions: parsed.transactions,
         categories: parsed.categories
       });
+
+      localStorage.setItem(LOCALSTORAGE_KEY, text);
     } catch (err) {
       console.error('Invalid JSON file', err);
     }

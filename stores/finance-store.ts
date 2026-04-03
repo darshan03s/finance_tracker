@@ -1,6 +1,7 @@
-import { LocalStorage } from '@/lib/local-storage-utils';
+import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { ExpenseCategory, IncomeCategory, Transaction } from '@/types';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type FinanceData = {
   balance: number;
@@ -28,112 +29,92 @@ export const defaultFinanceData: FinanceData = {
   transactions: []
 };
 
-export const useFinanceStore = create<FinanceStore>((set) => ({
-  ...defaultFinanceData,
-  updateBalance: (amount: number) => {
-    set((state) => {
-      const newBalance = state.balance + amount;
+export const useFinanceStore = create<FinanceStore>()(
+  persist(
+    (set) => ({
+      ...defaultFinanceData,
 
-      const newTransaction: Transaction = {
-        id: crypto.randomUUID(),
-        name: 'Balance Update',
-        date: new Date().toISOString(),
-        type: 'balance',
-        category: 'balance',
-        amount,
-        note: ''
-      };
+      updateBalance: (amount: number) => {
+        set((state) => {
+          const newBalance = state.balance + amount;
 
-      LocalStorage.updateBalance(newBalance, newTransaction);
+          const newTransaction: Transaction = {
+            id: crypto.randomUUID(),
+            name: 'Balance Update',
+            date: new Date().toISOString(),
+            type: 'balance',
+            category: 'balance',
+            amount,
+            note: ''
+          };
 
-      return {
-        balance: newBalance,
-        transactions: [newTransaction, ...state.transactions]
-      };
-    });
-  },
-  addTransaction: (txn: Transaction) => {
-    set((state) => {
-      const updatedTransactions = [txn, ...state.transactions];
+          return {
+            balance: newBalance,
+            transactions: [newTransaction, ...state.transactions]
+          };
+        });
+      },
 
-      let newBalance = state.balance;
+      addTransaction: (txn: Transaction) => {
+        set((state) => {
+          const updatedTransactions = [txn, ...state.transactions];
 
-      if (txn.type === 'income') {
-        newBalance = newBalance + txn.amount;
-      } else if (txn.type === 'expense') {
-        newBalance = newBalance - txn.amount;
-      }
+          let newBalance = state.balance;
 
-      LocalStorage.updateTransactions(newBalance, updatedTransactions);
+          if (txn.type === 'income') newBalance += txn.amount;
+          else if (txn.type === 'expense') newBalance -= txn.amount;
 
-      return {
-        transactions: updatedTransactions,
-        balance: newBalance
-      };
-    });
-  },
-  updateTransaction: (updatedTxn: Transaction) => {
-    set((state) => {
-      const existingIndex = state.transactions.findIndex((t) => t.id === updatedTxn.id);
-      if (existingIndex === -1) return state;
+          return {
+            transactions: updatedTransactions,
+            balance: newBalance
+          };
+        });
+      },
 
-      const oldTxn = state.transactions[existingIndex];
+      updateTransaction: (updatedTxn: Transaction) => {
+        set((state) => {
+          const index = state.transactions.findIndex((t) => t.id === updatedTxn.id);
+          if (index === -1) return state;
 
-      let newBalance = state.balance;
+          const oldTxn = state.transactions[index];
+          let newBalance = state.balance;
 
-      if (oldTxn.type === 'income') {
-        newBalance -= oldTxn.amount;
-      } else if (oldTxn.type === 'expense') {
-        newBalance += oldTxn.amount;
-      }
+          if (oldTxn.type === 'income') newBalance -= oldTxn.amount;
+          else if (oldTxn.type === 'expense') newBalance += oldTxn.amount;
 
-      if (updatedTxn.type === 'income') {
-        newBalance += updatedTxn.amount;
-      } else if (updatedTxn.type === 'expense') {
-        newBalance -= updatedTxn.amount;
-      }
+          if (updatedTxn.type === 'income') newBalance += updatedTxn.amount;
+          else if (updatedTxn.type === 'expense') newBalance -= updatedTxn.amount;
 
-      const updatedTransactions = [...state.transactions];
-      updatedTransactions[existingIndex] = updatedTxn;
+          const updatedTransactions = [...state.transactions];
+          updatedTransactions[index] = updatedTxn;
 
-      LocalStorage.updateTransactions(newBalance, updatedTransactions);
+          return {
+            transactions: updatedTransactions,
+            balance: newBalance
+          };
+        });
+      },
 
-      return {
-        transactions: updatedTransactions,
-        balance: newBalance
-      };
-    });
-  },
-  deleteTransaction: (txn: Transaction) => {
-    set((state) => {
-      if (txn.type === 'balance') return state;
+      deleteTransaction: (txn: Transaction) => {
+        set((state) => {
+          if (txn.type === 'balance') return state;
 
-      let newBalance = state.balance;
+          let newBalance = state.balance;
 
-      if (txn.type === 'income') {
-        newBalance -= txn.amount;
-      } else if (txn.type === 'expense') {
-        newBalance += txn.amount;
-      }
+          if (txn.type === 'income') newBalance -= txn.amount;
+          else if (txn.type === 'expense') newBalance += txn.amount;
 
-      const updatedTransactions = state.transactions.filter((t) => t.id !== txn.id);
+          return {
+            transactions: state.transactions.filter((t) => t.id !== txn.id),
+            balance: newBalance
+          };
+        });
+      },
 
-      LocalStorage.updateTransactions(newBalance, updatedTransactions);
-
-      return {
-        transactions: updatedTransactions,
-        balance: newBalance
-      };
-    });
-  },
-  resetData: () => {
-    set(() => {
-      return {
-        balance: defaultFinanceData.balance,
-        transactions: defaultFinanceData.transactions,
-        categories: defaultFinanceData.categories
-      };
-    });
-    LocalStorage.reset();
-  }
-}));
+      resetData: () => set(() => defaultFinanceData)
+    }),
+    {
+      name: LOCALSTORAGE_KEY
+    }
+  )
+);

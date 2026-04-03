@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ModeToggle } from './mode-toggle';
 import UserAdminToggle from './user-admin-toggle';
+import ManageData from './manage-data';
 
 const Header = () => {
   return (
@@ -9,6 +10,7 @@ const Header = () => {
         <Link href={'/'}>$Finance Tracker</Link>
       </div>
       <div className="header-right flex items-center gap-2">
+        <ManageData />
         <UserAdminToggle />
         <ModeToggle />
       </div>

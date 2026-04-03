@@ -16,7 +16,7 @@ const UserAdminToggle = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon-sm">
           {role === 'user' ? (
             <User className="h-[1.2rem] w-[1.2rem]" />
           ) : (

@@ -114,12 +114,15 @@ const CategoryBreakdown = ({
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
-        <CardTitle>Category Breakdown</CardTitle>
-        <CardDescription>{capitalize(type)} by category</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Category Breakdown</CardTitle>
+        <CardDescription className="text-xs sm:text-md">
+          {capitalize(type)} by category
+        </CardDescription>
         <CardAction>
           <div className="flex items-center gap-2">
             <HoverTooltip message="Show Expenses">
               <Button
+                size={'icon-xs'}
                 variant={type === 'expense' ? 'default' : 'outline'}
                 onClick={() => setType('expense')}
               >
@@ -128,6 +131,7 @@ const CategoryBreakdown = ({
             </HoverTooltip>
             <HoverTooltip message="Show Income">
               <Button
+                size={'icon-xs'}
                 variant={type === 'income' ? 'default' : 'outline'}
                 onClick={() => setType('income')}
               >

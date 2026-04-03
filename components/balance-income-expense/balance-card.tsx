@@ -35,8 +35,8 @@ const BalanceCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Balance</CardTitle>
-        <CardDescription>Your total balance</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Balance</CardTitle>
+        <CardDescription className="text-xs sm:text-md">Your total balance</CardDescription>
         <CardAction>
           <div className="flex items-center gap-1">
             <Input
@@ -60,7 +60,7 @@ const BalanceCard = () => {
           </div>
         </CardAction>
       </CardHeader>
-      <CardContent className="flex items-center justify-center text-5xl h-full w-full">
+      <CardContent className="flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl h-full w-full">
         <span>${balance}</span>
       </CardContent>
     </Card>

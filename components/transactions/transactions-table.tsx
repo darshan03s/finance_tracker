@@ -29,7 +29,7 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
         </TableRow>
       </TableHeader>
 
-      <TableBody>
+      <TableBody className="text-xs lg:text-base">
         {transactions.map((txn, index) => (
           <TableRow key={index}>
             <TableCell className="font-medium">{new Date(txn.date).toLocaleDateString()}</TableCell>

@@ -80,6 +80,7 @@ const AddExpenseDialog = ({
 
         <div className="flex flex-col gap-4 mt-4">
           <Input
+            className="text-xs sm:text-sm"
             type="text"
             placeholder="Name"
             value={transaction.name}
@@ -88,6 +89,7 @@ const AddExpenseDialog = ({
 
           <Input
             type="number"
+            className="text-xs sm:text-sm"
             placeholder="Amount"
             value={transaction.amount || ''}
             onChange={(e) => handleChange('amount', Number(e.target.value))}
@@ -112,6 +114,7 @@ const AddExpenseDialog = ({
           </Select>
 
           <Input
+            className="text-xs sm:text-sm"
             placeholder="Note (optional)"
             value={transaction.note}
             onChange={(e) => handleChange('note', e.target.value)}

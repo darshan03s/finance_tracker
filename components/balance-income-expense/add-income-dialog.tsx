@@ -84,12 +84,14 @@ const AddIncomeDialog = ({
             type="text"
             placeholder="Name"
             value={transaction.name}
+            className="text-xs sm:text-sm"
             onChange={(e) => handleChange('name', e.target.value)}
           />
 
           <Input
             type="number"
             placeholder="Amount"
+            className="text-xs sm:text-sm"
             value={transaction.amount || ''}
             onChange={(e) => handleChange('amount', Number(e.target.value))}
           />
@@ -114,6 +116,7 @@ const AddIncomeDialog = ({
 
           <Input
             placeholder="Note (optional)"
+            className="text-xs sm:text-sm"
             value={transaction.note}
             onChange={(e) => handleChange('note', e.target.value)}
           />

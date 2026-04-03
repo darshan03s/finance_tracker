@@ -1,11 +1,7 @@
 'use client';
 
-import { Button } from './ui/button';
 import BalanceTrend from './charts/balance-trend';
 import CategoryBreakdown from './charts/category-breakdown';
-import TransactionsTable from './transactions/transactions-table';
-import { Input } from './ui/input';
-import { Filter } from 'lucide-react';
 import BalanceCard from './balance-income-expense/balance-card';
 import { useEffect } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
@@ -23,8 +19,6 @@ import ExpenseCard from './balance-income-expense/expense-card';
 import HighestExpenseCategory from './insights/highest-expense-category';
 import MonthlyComparison from './insights/monthly-comparison';
 import LargestExpense from './insights/largest-expense';
-import Fuse from 'fuse.js';
-import { useMemo } from 'react';
 import Transactions from './transactions/transactions';
 
 const Main = () => {
@@ -61,13 +55,15 @@ const Main = () => {
     <main className="pb-4">
       <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
       <div className="space-y-4">
-        <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-3 gap-4 px-10">
+        <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
           <BalanceCard />
           <IncomeCard income={monthlyTotals.income} />
-          <ExpenseCard expense={monthlyTotals.expense} />
+          <div className="sm:col-span-2 lg:col-span-1">
+            <ExpenseCard expense={monthlyTotals.expense} />
+          </div>
         </div>
 
-        <div className="charts grid grid-cols-1 sm:grid-cols-2 px-10 gap-4">
+        <div className="charts grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 px-10 gap-4">
           <div className="h-72">
             <BalanceTrend chartData={chartData} />
           </div>
@@ -81,15 +77,17 @@ const Main = () => {
           </div>
         </div>
 
-        <div className="insights grid grid-cols-1 sm:grid-cols-3 px-10 gap-4">
+        <div className="insights grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-10 gap-4">
           <HighestExpenseCategory data={highestExpense} />
           <MonthlyComparison data={expenseComparison} />
-          <LargestExpense data={largestExpense} />
+          <div className="sm:col-span-2 lg:col-span-1">
+            <LargestExpense data={largestExpense} />
+          </div>
         </div>
 
-        <h1 className="text-2xl text-center py-6">Transactions</h1>
+        <h1 className="text-lg md:text-2xl text-center py-4">Transactions</h1>
 
-        <div className="transactions px-20 space-y-4">
+        <div className="transactions px-10 md:px-20 space-y-4">
           <Transactions transactions={transactions} />
         </div>
       </div>

@@ -17,8 +17,8 @@ const IncomeCard = ({ income }: { income: number }) => {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Income</CardTitle>
-          <CardDescription>This {"month's"} income</CardDescription>
+          <CardTitle className="text-md sm:text-lg">Income</CardTitle>
+          <CardDescription className="text-xs sm:text-md">This {"month's"} income</CardDescription>
           <CardAction>
             <div>
               <Button
@@ -32,7 +32,7 @@ const IncomeCard = ({ income }: { income: number }) => {
             </div>
           </CardAction>
         </CardHeader>
-        <CardContent className="flex items-center justify-center text-5xl h-full w-full">
+        <CardContent className="flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl h-full w-full">
           <p>${income}</p>
         </CardContent>
       </Card>

@@ -50,8 +50,8 @@ const BalanceTrend = ({ chartData }: { chartData: ChartData[] }) => {
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
-        <CardTitle>Balance trend</CardTitle>
-        <CardDescription>Your balance trends</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Balance trend</CardTitle>
+        <CardDescription className="text-xs sm:text-md">Your balance trends</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 min-h-0">
         <ChartWrapper chartData={chartData} />

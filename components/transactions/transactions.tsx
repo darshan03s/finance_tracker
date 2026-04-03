@@ -37,6 +37,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
     <>
       <div className="flex items-center gap-4">
         <Input
+          className="text-xs sm:text-md"
           placeholder="Search your transactions"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

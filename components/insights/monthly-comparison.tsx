@@ -26,8 +26,10 @@ const MonthlyComparison = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Monthly comparison</CardTitle>
-        <CardDescription>Comparison to previous month</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Monthly comparison</CardTitle>
+        <CardDescription className="text-xs sm:text-md">
+          Comparison to previous month
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex items-center justify-center h-full w-full">

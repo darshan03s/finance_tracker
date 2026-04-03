@@ -5,8 +5,10 @@ const LargestExpense = ({ data }: { data: Transaction | null }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Largest Expense this month</CardTitle>
-        <CardDescription>This is your most expensive purchase</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Largest Expense this month</CardTitle>
+        <CardDescription className="text-xs sm:text-md">
+          This is your most expensive purchase
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="flex items-center justify-center h-full w-full">

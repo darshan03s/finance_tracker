@@ -4,8 +4,10 @@ const HighestExpenseCategory = ({ data }: { data: { category: string; amount: nu
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Highest Expense Category</CardTitle>
-        <CardDescription>You spent most on this category</CardDescription>
+        <CardTitle className="text-md sm:text-lg">Highest Expense Category</CardTitle>
+        <CardDescription className="text-xs sm:text-md">
+          You spent most on this category
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex items-center justify-center h-full w-full">
         {data.amount === 0 ? (

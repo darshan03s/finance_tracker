@@ -30,3 +30,8 @@ export type ChartData = {
   income: number;
   expense: number;
 };
+
+export type Filters = {
+  type: ('income' | 'expense')[];
+  categories: string[];
+};

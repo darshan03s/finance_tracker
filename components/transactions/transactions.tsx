@@ -1,13 +1,16 @@
-import { Filter } from 'lucide-react';
-import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import TransactionsTable from './transactions-table';
-import { Transaction } from '@/types';
+import { Filters, Transaction } from '@/types';
 import { useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
+import FilterDropdown from './filter-dropdown';
 
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState<Filters>({
+    type: [],
+    categories: []
+  });
 
   const fuse = useMemo(() => {
     return new Fuse(transactions, {
@@ -19,6 +22,17 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   const filteredTransactions =
     search.trim() === '' ? transactions : fuse.search(search).map((result) => result.item);
 
+  const result = filteredTransactions.filter((txn) => {
+    const typeMatch =
+      filters.type.length === 0 ||
+      (txn.type !== 'balance' && filters.type.includes(txn.type as 'income' | 'expense'));
+
+    const categoryMatch =
+      filters.categories.length === 0 || filters.categories.includes(txn.category);
+
+    return typeMatch && categoryMatch;
+  });
+
   return (
     <>
       <div className="flex items-center gap-4">
@@ -27,11 +41,9 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button>
-          <Filter />
-        </Button>
+        <FilterDropdown setFilters={setFilters} filters={filters} />
       </div>
-      <TransactionsTable transactions={filteredTransactions} />
+      <TransactionsTable transactions={result} />
     </>
   );
 };

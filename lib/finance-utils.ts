@@ -1,5 +1,37 @@
 import { MonthlyTotals, Transaction } from '@/types';
 
+export function getTodaysIncome(transactions: Transaction[], referenceDate: Date = new Date()) {
+  const today = referenceDate.getDate();
+
+  let income = 0;
+
+  for (const txn of transactions) {
+    if (txn.type === 'balance' || txn.type === 'expense') continue;
+    const d = new Date(txn.date);
+    if (d.getDate() === today) {
+      income += txn.amount;
+    }
+  }
+
+  return income;
+}
+
+export function getTodaysExpense(transactions: Transaction[], referenceDate: Date = new Date()) {
+  const today = referenceDate.getDate();
+
+  let expense = 0;
+
+  for (const txn of transactions) {
+    if (txn.type === 'balance' || txn.type === 'income') continue;
+    const d = new Date(txn.date);
+    if (d.getDate() === today) {
+      expense += txn.amount;
+    }
+  }
+
+  return expense;
+}
+
 export function getMonthlyTotals(
   transactions: Transaction[],
   referenceDate: Date = new Date()

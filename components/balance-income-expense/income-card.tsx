@@ -9,9 +9,18 @@ import {
 } from '@/components/ui/card';
 import { Button } from '../ui/button';
 import AddIncomeDialog from './add-income-dialog';
+import { CalendarDays, CalendarRange } from 'lucide-react';
+import { HoverTooltip } from '../wrappers';
 
-const IncomeCard = ({ income }: { income: number }) => {
+const IncomeCard = ({
+  incomeThisMonth,
+  incomeToday
+}: {
+  incomeThisMonth: number;
+  incomeToday: number;
+}) => {
   const [open, setOpen] = useState(false);
+  const [filter, setFilter] = useState<'month' | 'day'>('month');
 
   return (
     <>
@@ -20,7 +29,25 @@ const IncomeCard = ({ income }: { income: number }) => {
           <CardTitle className="text-md sm:text-lg">Income</CardTitle>
           <CardDescription className="text-xs sm:text-md">This {"month's"} income</CardDescription>
           <CardAction>
-            <div>
+            <div className="flex items-center gap-2">
+              <HoverTooltip message="Today's income">
+                <Button
+                  size={'icon-xs'}
+                  onClick={() => setFilter('day')}
+                  variant={filter === 'day' ? 'default' : 'outline'}
+                >
+                  <CalendarDays />
+                </Button>
+              </HoverTooltip>
+              <HoverTooltip message="This month's income">
+                <Button
+                  size={'icon-xs'}
+                  onClick={() => setFilter('month')}
+                  variant={filter === 'month' ? 'default' : 'outline'}
+                >
+                  <CalendarRange />
+                </Button>
+              </HoverTooltip>
               <Button
                 size={'xs'}
                 className="text-xs"
@@ -33,7 +60,7 @@ const IncomeCard = ({ income }: { income: number }) => {
           </CardAction>
         </CardHeader>
         <CardContent className="flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl h-full w-full">
-          <p>${income}</p>
+          <p>${filter === 'month' ? incomeThisMonth : incomeToday}</p>
         </CardContent>
       </Card>
       <AddIncomeDialog open={open} setOpen={setOpen} />

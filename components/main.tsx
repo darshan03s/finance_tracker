@@ -12,7 +12,9 @@ import {
   getMonthlyCategoryBreakdown,
   getMonthlyExpenseComparison,
   getMonthlyIncomeExpenseTrend,
-  getMonthlyTotals
+  getMonthlyTotals,
+  getTodaysExpense,
+  getTodaysIncome
 } from '@/lib/finance-utils';
 import IncomeCard from './balance-income-expense/income-card';
 import ExpenseCard from './balance-income-expense/expense-card';
@@ -42,6 +44,8 @@ const Main = () => {
 
   const transactions = useFinanceStore((s) => s.transactions);
   const monthlyTotals = getMonthlyTotals(transactions);
+  const todaysIncome = getTodaysIncome(transactions);
+  const todaysExpense = getTodaysExpense(transactions);
   const chartData = getMonthlyIncomeExpenseTrend(transactions);
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
   const incomeCategories = useFinanceStore((s) => s.categories.income);
@@ -57,9 +61,9 @@ const Main = () => {
       <div className="space-y-4">
         <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
           <BalanceCard />
-          <IncomeCard income={monthlyTotals.income} />
+          <IncomeCard incomeThisMonth={monthlyTotals.income} incomeToday={todaysIncome} />
           <div className="sm:col-span-2 lg:col-span-1">
-            <ExpenseCard expense={monthlyTotals.expense} />
+            <ExpenseCard expenseThisMonth={monthlyTotals.expense} expenseToday={todaysExpense} />
           </div>
         </div>
 

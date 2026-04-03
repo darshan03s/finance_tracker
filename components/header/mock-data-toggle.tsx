@@ -17,7 +17,10 @@ const MockDataToggle = ({ mockData }: { mockData: FinanceData }) => {
         categories: current.categories
       };
 
-      useFinanceStore.setState({ ...mockData });
+      useFinanceStore.setState((state) => ({
+        ...state,
+        ...mockData
+      }));
     } else {
       if (!prevRef.current) return;
 

@@ -32,8 +32,7 @@ const Main = () => {
       const parsed = JSON.parse(data) as FinanceData;
       useFinanceStore.setState({
         balance: parsed.balance,
-        transactions: parsed.transactions,
-        monthlyBalances: parsed.monthlyBalances || []
+        transactions: parsed.transactions
       });
     }
   }

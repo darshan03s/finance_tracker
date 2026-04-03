@@ -9,7 +9,6 @@ export type FinanceData = {
     expense: ExpenseCategory[];
   };
   transactions: Transaction[];
-  monthlyBalances: MonthlyBalance[];
 };
 
 type FinanceStore = FinanceData & {
@@ -25,8 +24,7 @@ export const defaultFinanceData: FinanceData = {
     expense: ['food', 'rent', 'misc'],
     income: ['salaray', 'freelance']
   },
-  transactions: [],
-  monthlyBalances: []
+  transactions: []
 };
 
 export const useFinanceStore = create<FinanceStore>((set) => ({
@@ -38,26 +36,6 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
       const parsed = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)!) as FinanceData;
 
       parsed.balance = newBalance;
-
-      const now = new Date();
-      const month = now.getMonth();
-      const year = now.getFullYear();
-
-      if (!parsed.monthlyBalances) parsed.monthlyBalances = [];
-
-      const existingIndex = parsed.monthlyBalances.findIndex(
-        (m) => m.month === month && m.year === year
-      );
-
-      if (existingIndex !== -1) {
-        parsed.monthlyBalances[existingIndex].balance = newBalance;
-      } else {
-        parsed.monthlyBalances.push({
-          month,
-          year,
-          balance: newBalance
-        });
-      }
 
       const newTransaction: Transaction = {
         id: crypto.randomUUID(),
@@ -75,8 +53,7 @@ export const useFinanceStore = create<FinanceStore>((set) => ({
 
       return {
         balance: newBalance,
-        transactions: [newTransaction, ...state.transactions],
-        monthlyBalances: parsed.monthlyBalances
+        transactions: [newTransaction, ...state.transactions]
       };
     });
   },

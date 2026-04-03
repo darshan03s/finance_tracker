@@ -22,7 +22,7 @@ export const defaultFinanceData: FinanceData = {
   balance: 0,
   categories: {
     expense: ['food', 'rent', 'misc'],
-    income: ['salaray', 'freelance']
+    income: ['salary', 'freelance']
   },
   transactions: []
 };

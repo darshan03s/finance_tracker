@@ -10,7 +10,7 @@ export type Transaction = {
 
 export type ExpenseCategory = 'food' | 'rent' | 'misc';
 
-export type IncomeCategory = 'salaray' | 'freelance';
+export type IncomeCategory = 'salary' | 'freelance';
 
 export type Category = IncomeCategory | ExpenseCategory;
 

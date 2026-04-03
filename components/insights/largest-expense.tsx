@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { capitalize } from '@/lib/utils';
 import { Transaction } from '@/types';
 
 const LargestExpense = ({ data }: { data: Transaction | null }) => {
@@ -16,8 +17,8 @@ const LargestExpense = ({ data }: { data: Transaction | null }) => {
           <span className="text-sm text-muted-foreground">No expenses this month</span>
         ) : (
           <div className="flex flex-col gap-1 items-center text-center">
-            <span className="text-3xl">{data.name}</span>
-            <span className="text-sm text-muted-foreground">{data.category}</span>
+            <span className="text-3xl">{capitalize(data.name)}</span>
+            <span className="text-sm text-muted-foreground">{capitalize(data.category)}</span>
             <span className="text-xs">${data.amount}</span>
           </div>
         )}

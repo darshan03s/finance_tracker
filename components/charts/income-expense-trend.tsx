@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { HoverTooltip } from '../wrappers';
 import { Button } from '../ui/button';
 import { CalendarDays, CalendarRange } from 'lucide-react';
+import { useDateStore } from '@/stores/date-store';
 
 const chartConfig = {
   income: {
@@ -105,6 +106,11 @@ const IncomeExpenseTrend = ({
   dailyChartData: DailyChartData[];
 }) => {
   const [filter, setFilter] = useState<'daily' | 'monthly'>('monthly');
+  const date = useDateStore((s) => s.date);
+
+  const month = new Intl.DateTimeFormat('en-IN', {
+    month: 'long'
+  }).format(date);
 
   return (
     <Card className="h-full w-full flex flex-col">
@@ -133,6 +139,9 @@ const IncomeExpenseTrend = ({
                 <CalendarDays />
               </Button>
             </HoverTooltip>
+            <span className="bg-primary text-primary-foreground p-1 px-2 rounded-md text-xs">
+              {filter === 'monthly' ? date.getFullYear() : month}
+            </span>
           </div>
         </CardAction>
       </CardHeader>

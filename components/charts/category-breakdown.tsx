@@ -25,6 +25,7 @@ import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
 import { HoverTooltip } from '../wrappers';
 import { useFinanceStore } from '@/stores/finance-store';
+import { useDateStore } from '@/stores/date-store';
 
 const ExpenseChart = ({
   chartData,
@@ -128,6 +129,7 @@ const CategoryBreakdown = ({
   incomeCategories: IncomeCategory[];
 }) => {
   const categoryBreakdownChartType = useFinanceStore((s) => s.categoryBreakdownChartType);
+  const date = useDateStore((s) => s.date);
 
   return (
     <Card className="h-full w-full flex flex-col">
@@ -156,6 +158,9 @@ const CategoryBreakdown = ({
                 <BanknoteArrowDown />
               </Button>
             </HoverTooltip>
+            <span className="bg-primary text-primary-foreground p-1 px-2 rounded-md text-xs">
+              {date.getFullYear()}
+            </span>
           </div>
         </CardAction>
       </CardHeader>

@@ -10,8 +10,19 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartData } from '@/types';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
+import { DailyChartData, MonthlyChartData } from '@/types';
+import { useState } from 'react';
+import { HoverTooltip } from '../wrappers';
+import { Button } from '../ui/button';
+import { CalendarDays, CalendarRange } from 'lucide-react';
 
 const chartConfig = {
   income: {
@@ -24,10 +35,10 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 
-const ChartWrapper = ({ chartData }: { chartData: ChartData[] }) => {
+const MonthlyTrend = ({ monthlyChartData }: { monthlyChartData: MonthlyChartData[] }) => {
   return (
     <ChartContainer config={chartConfig} className="h-full w-full">
-      <BarChart accessibilityLayer data={chartData}>
+      <BarChart accessibilityLayer data={monthlyChartData}>
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="month"
@@ -46,7 +57,37 @@ const ChartWrapper = ({ chartData }: { chartData: ChartData[] }) => {
   );
 };
 
-const IncomeExpenseTrend = ({ chartData }: { chartData: ChartData[] }) => {
+const DailyTrend = ({ dailyChartData }: { dailyChartData: DailyChartData[] }) => {
+  return (
+    <ChartContainer config={chartConfig} className="h-full w-full">
+      <BarChart accessibilityLayer data={dailyChartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="day"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value}
+        />
+        <YAxis tickLine={false} axisLine={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <Bar dataKey="income" fill="var(--color-income)" />
+        <Bar dataKey="expense" fill="var(--color-expense)" />
+      </BarChart>
+    </ChartContainer>
+  );
+};
+
+const IncomeExpenseTrend = ({
+  monthlyChartData,
+  dailyChartData
+}: {
+  monthlyChartData: MonthlyChartData[];
+  dailyChartData: DailyChartData[];
+}) => {
+  const [filter, setFilter] = useState<'daily' | 'monthly'>('monthly');
+
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
@@ -54,9 +95,35 @@ const IncomeExpenseTrend = ({ chartData }: { chartData: ChartData[] }) => {
         <CardDescription className="text-xs sm:text-md">
           Your income and expense trends
         </CardDescription>
+        <CardAction>
+          <div className="flex items-center gap-2">
+            <HoverTooltip message="Monthly trend">
+              <Button
+                size={'icon-xs'}
+                variant={filter === 'monthly' ? 'default' : 'outline'}
+                onClick={() => setFilter('monthly')}
+              >
+                <CalendarRange />
+              </Button>
+            </HoverTooltip>
+            <HoverTooltip message="Daily trend">
+              <Button
+                size={'icon-xs'}
+                variant={filter === 'daily' ? 'default' : 'outline'}
+                onClick={() => setFilter('daily')}
+              >
+                <CalendarDays />
+              </Button>
+            </HoverTooltip>
+          </div>
+        </CardAction>
       </CardHeader>
       <CardContent className="flex-1 min-h-0">
-        <ChartWrapper chartData={chartData} />
+        {filter === 'monthly' ? (
+          <MonthlyTrend monthlyChartData={monthlyChartData} />
+        ) : (
+          <DailyTrend dailyChartData={dailyChartData} />
+        )}
       </CardContent>
     </Card>
   );

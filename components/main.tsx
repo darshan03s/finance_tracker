@@ -5,6 +5,7 @@ import CategoryBreakdown from './charts/category-breakdown';
 import BalanceCard from './balance-income-expense/balance-card';
 import { useFinanceStore } from '@/stores/finance-store';
 import {
+  getDailyIncomeExpenseTrend,
   getHighestExpenseCategory,
   getLargestExpense,
   getMonthlyCategoryBreakdown,
@@ -26,7 +27,8 @@ const Main = () => {
   const monthlyTotals = getMonthlyTotals(transactions);
   const todaysIncome = getTodaysIncome(transactions);
   const todaysExpense = getTodaysExpense(transactions);
-  const chartData = getMonthlyIncomeExpenseTrend(transactions);
+  const monthlyChartData = getMonthlyIncomeExpenseTrend(transactions);
+  const dailyChartData = getDailyIncomeExpenseTrend(transactions);
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
   const incomeCategories = useFinanceStore((s) => s.categories.income);
   const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
@@ -49,7 +51,10 @@ const Main = () => {
 
         <div className="charts grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 px-10 gap-4">
           <div className="h-72">
-            <IncomeExpenseTrend chartData={chartData} />
+            <IncomeExpenseTrend
+              monthlyChartData={monthlyChartData}
+              dailyChartData={dailyChartData}
+            />
           </div>
           <div className="h-72">
             <CategoryBreakdown

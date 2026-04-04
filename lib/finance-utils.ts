@@ -106,6 +106,41 @@ export function getMonthlyIncomeExpenseTrend(
   }));
 }
 
+export function getDailyIncomeExpenseTrend(
+  transactions: Transaction[],
+  referenceDate: Date = new Date()
+) {
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const incomeArr: number[] = new Array(daysInMonth).fill(0);
+  const expenseArr: number[] = new Array(daysInMonth).fill(0);
+
+  for (const txn of transactions) {
+    if (txn.type === 'balance') continue;
+
+    const d = new Date(txn.date);
+
+    if (d.getMonth() !== month || d.getFullYear() !== year) continue;
+
+    const dayIndex = d.getDate() - 1;
+
+    if (txn.type === 'income') {
+      incomeArr[dayIndex] += txn.amount;
+    } else {
+      expenseArr[dayIndex] += txn.amount;
+    }
+  }
+
+  return Array.from({ length: daysInMonth }, (_, i) => ({
+    day: String(i + 1),
+    income: incomeArr[i],
+    expense: -expenseArr[i]
+  }));
+}
+
 export function getMonthlyCategoryBreakdown(
   transactions: Transaction[],
   categories: string[],

@@ -17,6 +17,7 @@ const DatePicker = () => {
         <Calendar
           onSelect={(selectedDate) => useDateStore.setState({ date: selectedDate })}
           selected={date}
+          defaultMonth={date ?? new Date()}
           mode="single"
           className="rounded-lg border"
         />

@@ -68,7 +68,7 @@ const ManageData = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size={'icon-sm'}>
+        <Button variant="outline" size={'icon-sm'} title="Manage data">
           <FileBraces />
         </Button>
       </DropdownMenuTrigger>

@@ -32,7 +32,7 @@ const MockDataToggle = ({ mockData }: { mockData: FinanceData }) => {
     }
   }
 
-  return <Switch onCheckedChange={handleChange} />;
+  return <Switch onCheckedChange={handleChange} title="Toggle mock data" />;
 };
 
 export default MockDataToggle;

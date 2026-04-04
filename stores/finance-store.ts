@@ -14,6 +14,7 @@ export type FinanceData = {
 
 type FinanceStore = FinanceData & {
   categoryBreakdownChartType: 'expense' | 'income';
+  isMockEnabled: boolean;
   updateBalance: (newBalance: number) => void;
   addTransaction: (txn: Transaction) => void;
   updateTransaction: (txn: Transaction) => void;
@@ -35,6 +36,7 @@ export const useFinanceStore = create<FinanceStore>()(
     (set) => ({
       ...defaultFinanceData,
       categoryBreakdownChartType: 'expense',
+      isMockEnabled: false,
       updateBalance: (amount: number) => {
         set((state) => {
           const newBalance = state.balance + amount;
@@ -115,7 +117,12 @@ export const useFinanceStore = create<FinanceStore>()(
       resetData: () => set(() => defaultFinanceData)
     }),
     {
-      name: LOCALSTORAGE_KEY
+      name: LOCALSTORAGE_KEY,
+      partialize: (state) => ({
+        transactions: state.transactions,
+        balance: state.balance,
+        categories: state.categories
+      })
     }
   )
 );

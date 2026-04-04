@@ -16,10 +16,9 @@ import { Plus } from 'lucide-react';
 import { useFinanceStore } from '@/stores/finance-store';
 import { formatCurrency } from '@/lib/utils';
 
-const BalanceCard = () => {
+const BalanceCard = ({ balance }: { balance: number }) => {
   const [balanceInput, setBalanceInput] = useState('');
 
-  const balance = useFinanceStore((s) => s.balance);
   const updateBalance = useFinanceStore((s) => s.updateBalance);
 
   function handleBalanceInput(value: string) {

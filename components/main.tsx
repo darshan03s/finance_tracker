@@ -3,7 +3,7 @@
 import IncomeExpenseTrend from './charts/income-expense-trend';
 import CategoryBreakdown from './charts/category-breakdown';
 import BalanceCard from './balance-income-expense/balance-card';
-import { useFinanceStore } from '@/stores/finance-store';
+import { FinanceData, useFinanceStore } from '@/stores/finance-store';
 import {
   getDailyIncomeExpenseTrend,
   getHighestExpenseCategory,
@@ -24,12 +24,16 @@ import Transactions from './transactions/transactions';
 import DatePicker from './date-picker';
 import { useDateStore } from '@/stores/date-store';
 
-const Main = () => {
+const Main = ({ mockData }: { mockData: FinanceData }) => {
   const date = useDateStore((s) => s.date);
   const safeDate = new Date(date);
-  const transactions = useFinanceStore((s) => s.transactions);
+  const isMockEnabled = useFinanceStore((s) => s.isMockEnabled);
+  const storeTransactions = useFinanceStore((s) => s.transactions);
+  const storeBalance = useFinanceStore((s) => s.balance);
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
   const incomeCategories = useFinanceStore((s) => s.categories.income);
+  const balance = isMockEnabled ? mockData.balance : storeBalance;
+  const transactions = isMockEnabled ? mockData.transactions : storeTransactions;
   const monthlyTotals = getMonthlyTotals(transactions, safeDate);
   const todaysIncome = getTodaysIncome(transactions, safeDate);
   const todaysExpense = getTodaysExpense(transactions, safeDate);
@@ -58,7 +62,7 @@ const Main = () => {
       </div>
       <div className="space-y-4">
         <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
-          <BalanceCard />
+          <BalanceCard balance={balance} />
           <IncomeCard incomeThisMonth={monthlyTotals.income} incomeToday={todaysIncome} />
           <div className="sm:col-span-2 lg:col-span-1">
             <ExpenseCard expenseThisMonth={monthlyTotals.expense} expenseToday={todaysExpense} />

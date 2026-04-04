@@ -1,20 +1,23 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Oxanium, Merriweather, Fira_Code } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin']
+const fontSans = Oxanium({
+  subsets: ['latin'],
+  variable: '--font-sans'
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin']
+const fontSerif = Merriweather({
+  subsets: ['latin'],
+  variable: '--font-serif'
+});
+
+const fontMono = Fira_Code({
+  subsets: ['latin'],
+  variable: '--font-mono'
 });
 
 export const metadata: Metadata = {
@@ -33,10 +36,7 @@ export default function RootLayout({
       className={cn(
         'h-full',
         'antialiased',
-        geistSans.variable,
-        geistMono.variable,
-        'font-sans',
-        inter.variable
+        `${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`
       )}
     >
       <body className="min-h-full flex flex-col">

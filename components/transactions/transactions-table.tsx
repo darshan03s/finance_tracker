@@ -15,6 +15,15 @@ import { useState } from 'react';
 import EditTransactionDialog from './edit-transactions';
 import { useFinanceStore } from '@/stores/finance-store';
 
+function bg(cat: string) {
+  if (cat === 'food') return '#f59e0b';
+  if (cat === 'rent') return '#ef4444';
+  if (cat === 'misc') return '#a855f7';
+  if (cat === 'salary') return '#3b82f6';
+  if (cat === 'freelance') return '#10b981';
+  if (cat === 'balance') return '#155dfc';
+}
+
 const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
   const role = useRoleStore((s) => s.role);
   const deleteTransaction = useFinanceStore((s) => s.deleteTransaction);
@@ -56,18 +65,23 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
           <TableRow key={index}>
             <TableCell className="font-medium">{new Date(txn.date).toLocaleDateString()}</TableCell>
 
-            <TableCell>{capitalize(txn.category)}</TableCell>
+            <TableCell>
+              <span
+                className={`text-white p-1 px-2 rounded-full`}
+                style={{ backgroundColor: bg(txn.category) }}
+              >
+                {capitalize(txn.category)}
+              </span>
+            </TableCell>
 
-            <TableCell
-              className={
-                txn.type === 'income'
-                  ? 'text-green-500 font-medium'
-                  : txn.type === 'expense'
-                    ? 'text-red-500 font-medium'
-                    : 'text-blue-500 font-medium'
-              }
-            >
-              {capitalize(txn.type)}
+            <TableCell>
+              <span
+                className={`p-1 px-2 rounded-full text-white
+                  ${txn.type === 'income' ? 'bg-green-600' : txn.type === 'expense' ? 'bg-red-600' : 'bg-blue-600'}
+                  `}
+              >
+                {capitalize(txn.type)}
+              </span>
             </TableCell>
 
             <TableCell>{capitalize(txn.name)}</TableCell>

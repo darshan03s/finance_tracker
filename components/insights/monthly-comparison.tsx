@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { formatCurrency } from '@/lib/utils';
 
 const MonthlyComparison = ({
   data
@@ -14,11 +15,11 @@ const MonthlyComparison = ({
   if (data.previousExpense === 0 && data.currentExpense === 0) {
     message = 'No expense data available';
   } else if (data.previousExpense === 0) {
-    message = `You spent $${data.currentExpense} this month`;
+    message = `You spent ${formatCurrency(data.currentExpense)} this month`;
   } else if (data.difference > 0) {
-    message = `You spent $${data.difference} more than last month`;
+    message = `You spent ${formatCurrency(data.difference)} more than last month`;
   } else if (data.difference < 0) {
-    message = `You spent $${Math.abs(data.difference)} less than last month`;
+    message = `You spent ${formatCurrency(Math.abs(data.difference))} less than last month`;
   } else {
     message = `Your spending is the same as last month`;
   }

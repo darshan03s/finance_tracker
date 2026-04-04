@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
-import { capitalize } from '@/lib/utils';
+import { capitalize, formatCurrency } from '@/lib/utils';
 import { useRoleStore } from '@/stores/role-store';
 import { Transaction } from '@/types';
 import { Pencil, Trash } from 'lucide-react';
@@ -73,7 +73,8 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
             <TableCell>{capitalize(txn.name)}</TableCell>
 
             <TableCell>
-              {txn.type === 'income' || txn.type === 'balance' ? '+' : '-'}${txn.amount}
+              {txn.type === 'income' || txn.type === 'balance' ? '+' : '-'}
+              {formatCurrency(txn.amount)}
             </TableCell>
 
             <TableCell>{txn.note}</TableCell>

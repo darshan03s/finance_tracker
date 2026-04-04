@@ -20,7 +20,6 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { ExpenseCategory, IncomeCategory } from '@/types';
-import { useState } from 'react';
 import { Button } from '../ui/button';
 import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
@@ -50,7 +49,16 @@ const ExpenseChart = ({
 
         <XAxis dataKey="month" tickLine={false} axisLine={false} />
 
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value: number) =>
+            new Intl.NumberFormat('en-IN', {
+              notation: 'compact',
+              compactDisplay: 'short'
+            }).format(value)
+          }
+        />
 
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
@@ -86,7 +94,16 @@ const IncomeChart = ({
 
         <XAxis dataKey="month" tickLine={false} axisLine={false} />
 
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value: number) =>
+            new Intl.NumberFormat('en-IN', {
+              notation: 'compact',
+              compactDisplay: 'short'
+            }).format(value)
+          }
+        />
 
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />

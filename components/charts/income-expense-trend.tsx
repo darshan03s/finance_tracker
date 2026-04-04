@@ -47,7 +47,16 @@ const MonthlyTrend = ({ monthlyChartData }: { monthlyChartData: MonthlyChartData
           axisLine={false}
           tickFormatter={(value) => value}
         />
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value: number) =>
+            new Intl.NumberFormat('en-IN', {
+              notation: 'compact',
+              compactDisplay: 'short'
+            }).format(value)
+          }
+        />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
         <Bar dataKey="income" fill="var(--color-income)" />
@@ -69,7 +78,16 @@ const DailyTrend = ({ dailyChartData }: { dailyChartData: DailyChartData[] }) =>
           axisLine={false}
           tickFormatter={(value) => value}
         />
-        <YAxis tickLine={false} axisLine={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value: number) =>
+            new Intl.NumberFormat('en-IN', {
+              notation: 'compact',
+              compactDisplay: 'short'
+            }).format(value)
+          }
+        />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
         <Bar dataKey="income" fill="var(--color-income)" />

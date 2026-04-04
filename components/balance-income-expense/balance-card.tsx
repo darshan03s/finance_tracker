@@ -14,6 +14,7 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
 import { useFinanceStore } from '@/stores/finance-store';
+import { formatCurrency } from '@/lib/utils';
 
 const BalanceCard = () => {
   const [balanceInput, setBalanceInput] = useState('');
@@ -62,7 +63,7 @@ const BalanceCard = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex items-center justify-center text-3xl sm:text-4xl lg:text-5xl h-full w-full">
-        <span>${balance}</span>
+        <span>{formatCurrency(balance)}</span>
       </CardContent>
     </Card>
   );

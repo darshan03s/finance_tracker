@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { formatCurrency } from '@/lib/utils';
 
 const HighestExpenseCategory = ({ data }: { data: { category: string; amount: number } }) => {
   return (
@@ -17,7 +18,7 @@ const HighestExpenseCategory = ({ data }: { data: { category: string; amount: nu
             <span className="text-2xl">
               {data.category.charAt(0).toUpperCase() + data.category.slice(1)}
             </span>
-            <span>${data.amount}</span>
+            <span>{formatCurrency(data.amount)}</span>
           </div>
         )}
       </CardContent>

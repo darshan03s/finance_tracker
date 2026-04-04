@@ -1,14 +1,18 @@
 import { MonthlyTotals, Transaction } from '@/types';
 
 export function getTodaysIncome(transactions: Transaction[], referenceDate: Date = new Date()) {
-  const today = referenceDate.getDate();
+  const day = referenceDate.getDate();
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
 
   let income = 0;
 
   for (const txn of transactions) {
-    if (txn.type === 'balance' || txn.type === 'expense') continue;
+    if (txn.type !== 'income') continue;
+
     const d = new Date(txn.date);
-    if (d.getDate() === today) {
+
+    if (d.getDate() === day && d.getMonth() === month && d.getFullYear() === year) {
       income += txn.amount;
     }
   }
@@ -17,14 +21,18 @@ export function getTodaysIncome(transactions: Transaction[], referenceDate: Date
 }
 
 export function getTodaysExpense(transactions: Transaction[], referenceDate: Date = new Date()) {
-  const today = referenceDate.getDate();
+  const day = referenceDate.getDate();
+  const month = referenceDate.getMonth();
+  const year = referenceDate.getFullYear();
 
   let expense = 0;
 
   for (const txn of transactions) {
-    if (txn.type === 'balance' || txn.type === 'income') continue;
+    if (txn.type !== 'expense') continue;
+
     const d = new Date(txn.date);
-    if (d.getDate() === today) {
+
+    if (d.getDate() === day && d.getMonth() === month && d.getFullYear() === year) {
       expense += txn.amount;
     }
   }
@@ -134,7 +142,11 @@ export function getDailyIncomeExpenseTrend(
     }
   }
 
-  return Array.from({ length: daysInMonth }, (_, i) => ({
+  const today = new Date();
+  const maxDay =
+    month === today.getMonth() && year === today.getFullYear() ? today.getDate() : daysInMonth;
+
+  return Array.from({ length: maxDay }, (_, i) => ({
     day: String(i + 1),
     income: incomeArr[i],
     expense: -expenseArr[i]

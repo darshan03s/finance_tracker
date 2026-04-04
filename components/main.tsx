@@ -21,25 +21,41 @@ import HighestExpenseCategory from './insights/highest-expense-category';
 import MonthlyComparison from './insights/monthly-comparison';
 import LargestExpense from './insights/largest-expense';
 import Transactions from './transactions/transactions';
+import DatePicker from './date-picker';
+import { useDateStore } from '@/stores/date-store';
 
 const Main = () => {
+  const date = useDateStore((s) => s.date);
+  const safeDate = new Date(date);
   const transactions = useFinanceStore((s) => s.transactions);
-  const monthlyTotals = getMonthlyTotals(transactions);
-  const todaysIncome = getTodaysIncome(transactions);
-  const todaysExpense = getTodaysExpense(transactions);
-  const monthlyChartData = getMonthlyIncomeExpenseTrend(transactions);
-  const dailyChartData = getDailyIncomeExpenseTrend(transactions);
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
   const incomeCategories = useFinanceStore((s) => s.categories.income);
-  const expenseCategoryData = getMonthlyCategoryBreakdown(transactions, expenseCategories);
-  const incomeCategoryData = getMonthlyCategoryBreakdown(transactions, incomeCategories, 'income');
-  const highestExpense = getHighestExpenseCategory(transactions, expenseCategories);
-  const expenseComparison = getMonthlyExpenseComparison(transactions);
-  const largestExpense = getLargestExpense(transactions);
+  const monthlyTotals = getMonthlyTotals(transactions, safeDate);
+  const todaysIncome = getTodaysIncome(transactions, safeDate);
+  const todaysExpense = getTodaysExpense(transactions, safeDate);
+  const monthlyChartData = getMonthlyIncomeExpenseTrend(transactions, safeDate.getFullYear());
+  const dailyChartData = getDailyIncomeExpenseTrend(transactions, safeDate);
+  const expenseCategoryData = getMonthlyCategoryBreakdown(
+    transactions,
+    expenseCategories,
+    'expense',
+    safeDate.getFullYear()
+  );
+  const incomeCategoryData = getMonthlyCategoryBreakdown(
+    transactions,
+    incomeCategories,
+    'income',
+    safeDate.getFullYear()
+  );
+  const highestExpense = getHighestExpenseCategory(transactions, expenseCategories, safeDate);
+  const expenseComparison = getMonthlyExpenseComparison(transactions, safeDate);
+  const largestExpense = getLargestExpense(transactions, safeDate);
 
   return (
     <main className="pb-4">
-      <div className="h-10 flex items-center justify-center py-6">{new Date().toDateString()}</div>
+      <div className="flex items-center justify-center py-4">
+        <DatePicker />
+      </div>
       <div className="space-y-4">
         <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
           <BalanceCard />

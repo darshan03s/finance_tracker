@@ -9,12 +9,14 @@ import {
 import { Button } from '../ui/button';
 import { FileBraces } from 'lucide-react';
 import { FinanceData, useFinanceStore } from '@/stores/finance-store';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
+import { ConfirmDialog } from '../wrappers';
 
 const ManageData = () => {
   const resetData = useFinanceStore((s) => s.resetData);
   const importRef = useRef<HTMLInputElement | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   function handleResetData() {
     resetData();
@@ -66,7 +68,7 @@ const ManageData = () => {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size={'icon-sm'} title="Manage data">
           <FileBraces />
@@ -75,7 +77,19 @@ const ManageData = () => {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={handleExportData}>Export data</DropdownMenuItem>
         <DropdownMenuItem onClick={handleImportData}>Import data</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleResetData}>Reset data</DropdownMenuItem>
+        <ConfirmDialog
+          title="Are you sure you want to reset all data?"
+          description="You cannot redo this action"
+          onSuccess={() => {
+            handleResetData();
+            setDropdownOpen(false);
+          }}
+          onCancel={() => {
+            setDropdownOpen(false);
+          }}
+        >
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Reset data</DropdownMenuItem>
+        </ConfirmDialog>
       </DropdownMenuContent>
       <input
         type="file"

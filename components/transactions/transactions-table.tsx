@@ -14,6 +14,7 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 import EditTransactionDialog from './edit-transactions';
 import { useFinanceStore } from '@/stores/finance-store';
+import { ConfirmDialog } from '../wrappers';
 
 function bg(cat: string) {
   if (cat === 'food') return '#f59e0b';
@@ -22,6 +23,12 @@ function bg(cat: string) {
   if (cat === 'salary') return '#3b82f6';
   if (cat === 'freelance') return '#10b981';
   if (cat === 'balance') return '#155dfc';
+}
+
+function getDeleteDescription(txn: Transaction) {
+  return `${capitalize(txn.type)} "${capitalize(txn.name)}" (${capitalize(
+    txn.category
+  )}) of ₹${formatCurrency(txn.amount)} will be deleted.`;
 }
 
 const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
@@ -112,13 +119,17 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
             {role === 'admin' && (
               <TableCell>
                 {txn.type === 'balance' ? null : (
-                  <Button
-                    variant="destructive"
-                    size="icon-sm"
-                    onClick={() => handleDeleteTransaction(txn)}
+                  <ConfirmDialog
+                    title={`Are you sure you want to delete this transaction?`}
+                    description={getDeleteDescription(txn)}
+                    onSuccess={() => {
+                      handleDeleteTransaction(txn);
+                    }}
                   >
-                    <Trash />
-                  </Button>
+                    <Button variant="destructive" size="icon-sm">
+                      <Trash />
+                    </Button>
+                  </ConfirmDialog>
                 )}
               </TableCell>
             )}

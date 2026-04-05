@@ -1,5 +1,16 @@
 import { ReactNode } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 
 export const HoverTooltip = ({
   message,
@@ -19,5 +30,39 @@ export const HoverTooltip = ({
         <p>{message}</p>
       </TooltipContent>
     </Tooltip>
+  );
+};
+
+export const ConfirmDialog = ({
+  children,
+  title,
+  description,
+  cancelButtonText = 'Cancel',
+  sucessButtonText = 'Continue',
+  onCancel = () => {},
+  onSuccess = () => {}
+}: {
+  children: ReactNode;
+  title: string;
+  description: string;
+  cancelButtonText?: string;
+  sucessButtonText?: string;
+  onCancel?: (...params: unknown[]) => unknown;
+  onSuccess?: (...params: unknown[]) => unknown;
+}) => {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={onCancel}>{cancelButtonText}</AlertDialogCancel>
+          <AlertDialogAction onClick={onSuccess}>{sucessButtonText}</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

@@ -149,7 +149,7 @@ const CategoryBreakdown = ({
                 variant={categoryBreakdownChartType === 'expense' ? 'default' : 'outline'}
                 onClick={() => useFinanceStore.setState({ categoryBreakdownChartType: 'expense' })}
               >
-                <BanknoteArrowUp />
+                <BanknoteArrowDown />
               </Button>
             </HoverTooltip>
             <HoverTooltip message="Show Income">
@@ -158,7 +158,7 @@ const CategoryBreakdown = ({
                 variant={categoryBreakdownChartType === 'income' ? 'default' : 'outline'}
                 onClick={() => useFinanceStore.setState({ categoryBreakdownChartType: 'income' })}
               >
-                <BanknoteArrowDown />
+                <BanknoteArrowUp />
               </Button>
             </HoverTooltip>
             <span className="bg-primary text-primary-foreground p-1 px-2 rounded-md text-xs">

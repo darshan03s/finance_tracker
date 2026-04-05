@@ -53,12 +53,16 @@ const AddTransaction = ({
     setError(defaultErrorState);
     setTransaction((prev) => ({
       ...prev,
-      [field]: value
+      [field]: typeof value === 'string' ? value.trim() : value
     }));
   };
 
   const handleSubmit = () => {
-    if (!transaction.name || !transaction.category || !transaction.amount) {
+    if (
+      transaction.name.trim().length === 0 ||
+      transaction.category.trim().length === 0 ||
+      transaction.amount === 0
+    ) {
       if (!transaction.name) {
         setError((e) => {
           return {

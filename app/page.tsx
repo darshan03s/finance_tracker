@@ -1,4 +1,3 @@
-import Footer from '@/components/footer';
 import Header from '@/components/header/header';
 import Main from '@/components/main';
 import { readFile } from 'node:fs/promises';
@@ -10,7 +9,6 @@ const page = async () => {
     <>
       <Header />
       <Main mockData={JSON.parse(mockData)} />
-      <Footer />
     </>
   );
 };

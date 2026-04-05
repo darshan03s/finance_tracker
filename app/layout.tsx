@@ -6,6 +6,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Analytics } from '@vercel/analytics/next';
 import { DOMAIN_URL } from '@/config';
+import Footer from '@/components/footer';
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = Oxanium({
   subsets: ['latin'],
@@ -93,7 +95,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            {children}
+            <Footer />
+            <Toaster />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -12,6 +12,7 @@ import { FinanceData, useFinanceStore } from '@/stores/finance-store';
 import { useRef, useState } from 'react';
 import { LOCALSTORAGE_KEY } from '@/lib/constants';
 import { ConfirmDialog } from '../wrappers';
+import { toast } from 'sonner';
 
 const ManageData = () => {
   const resetData = useFinanceStore((s) => s.resetData);
@@ -52,6 +53,10 @@ const ManageData = () => {
     try {
       const text = await file.text();
       const parsed = JSON.parse(text) as FinanceData;
+
+      if (!parsed.transactions || !parsed.categories || typeof parsed.balance !== 'number') {
+        toast.error('Invalid format');
+      }
 
       useFinanceStore.setState({
         balance: parsed.balance,

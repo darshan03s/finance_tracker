@@ -19,7 +19,7 @@ import { ConfirmDialog } from '../wrappers';
 function getDeleteDescription(txn: Transaction) {
   return `${capitalize(txn.type)} "${capitalize(txn.name)}" (${capitalize(
     txn.category
-  )}) of ₹${formatCurrency(txn.amount)} will be deleted.`;
+  )}) of ${formatCurrency(txn.amount)} will be deleted.`;
 }
 
 const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) => {
@@ -59,8 +59,8 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
       </TableHeader>
 
       <TableBody className="text-xs lg:text-[13px]">
-        {transactions.map((txn, index) => (
-          <TableRow key={index}>
+        {transactions.map((txn) => (
+          <TableRow key={txn.id}>
             <TableCell className="font-medium">{new Date(txn.date).toLocaleDateString()}</TableCell>
 
             <TableCell>

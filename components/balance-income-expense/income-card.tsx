@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '../ui/button';
 import AddIncomeDialog from './add-income-dialog';
-import { CalendarDays, CalendarRange } from 'lucide-react';
+import { BanknoteArrowUp, CalendarDays, CalendarRange } from 'lucide-react';
 import { HoverTooltip } from '../wrappers';
 import { formatCurrency } from '@/lib/utils';
 
@@ -29,7 +29,9 @@ const IncomeCard = ({
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="text-md sm:text-lg">Income</CardTitle>
+          <CardTitle className="text-md sm:text-lg flex items-center gap-1">
+            <BanknoteArrowUp className="size-3 sm:size-4.5" /> Income
+          </CardTitle>
           <CardDescription className="text-xs sm:text-md">{cardDescription}</CardDescription>
           <CardAction>
             <div className="flex items-center gap-2">

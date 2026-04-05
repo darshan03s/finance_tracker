@@ -12,7 +12,7 @@ import { HoverTooltip } from '../wrappers';
 import { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Plus } from 'lucide-react';
+import { BadgeIndianRupee, Plus } from 'lucide-react';
 import { useFinanceStore } from '@/stores/finance-store';
 import { formatCurrency } from '@/lib/utils';
 
@@ -36,7 +36,9 @@ const BalanceCard = ({ balance }: { balance: number }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-md sm:text-lg">Balance</CardTitle>
+        <CardTitle className="text-md sm:text-lg flex items-center gap-1">
+          <BadgeIndianRupee className="size-3 sm:size-4.5" /> Balance
+        </CardTitle>
         <CardDescription className="text-xs sm:text-md">Your total balance</CardDescription>
         <CardAction>
           <div className="flex items-center gap-1">

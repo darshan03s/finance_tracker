@@ -10,7 +10,7 @@ import {
 import { Button } from '../ui/button';
 import AddExpenseDialog from './add-expense-dialog';
 import { HoverTooltip } from '../wrappers';
-import { CalendarDays, CalendarRange } from 'lucide-react';
+import { BanknoteArrowDown, CalendarDays, CalendarRange } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 const ExpenseCard = ({
@@ -29,7 +29,9 @@ const ExpenseCard = ({
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="text-md sm:text-lg">Expense</CardTitle>
+          <CardTitle className="text-md sm:text-lg flex items-center gap-1">
+            <BanknoteArrowDown className="size-3 sm:size-4.5" /> Expense
+          </CardTitle>
           <CardDescription className="text-xs sm:text-md">{cardDescription}</CardDescription>
           <CardAction>
             <div className="flex items-center gap-2">

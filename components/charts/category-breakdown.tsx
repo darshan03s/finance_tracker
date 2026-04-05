@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/card';
 import { ExpenseCategory, IncomeCategory } from '@/types';
 import { Button } from '../ui/button';
-import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
+import { BanknoteArrowDown, BanknoteArrowUp, ChartColumnStacked } from 'lucide-react';
 import { capitalize } from '@/lib/utils';
 import { HoverTooltip } from '../wrappers';
 import { useFinanceStore } from '@/stores/finance-store';
@@ -134,7 +134,10 @@ const CategoryBreakdown = ({
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
-        <CardTitle className="text-md sm:text-lg">Category Breakdown</CardTitle>
+        <CardTitle className="text-md sm:text-lg flex items-center gap-1">
+          <ChartColumnStacked className="size-3 sm:size-4.5" />
+          Category Breakdown
+        </CardTitle>
         <CardDescription className="text-xs sm:text-md">
           {capitalize(categoryBreakdownChartType)} by category
         </CardDescription>

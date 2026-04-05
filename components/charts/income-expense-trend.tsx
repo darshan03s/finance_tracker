@@ -22,7 +22,7 @@ import { DailyChartData, MonthlyChartData } from '@/types';
 import { useState } from 'react';
 import { HoverTooltip } from '../wrappers';
 import { Button } from '../ui/button';
-import { CalendarDays, CalendarRange } from 'lucide-react';
+import { CalendarDays, CalendarRange, TrendingUpDown } from 'lucide-react';
 import { useDateStore } from '@/stores/date-store';
 
 const chartConfig = {
@@ -115,7 +115,9 @@ const IncomeExpenseTrend = ({
   return (
     <Card className="h-full w-full flex flex-col">
       <CardHeader>
-        <CardTitle className="text-md sm:text-lg">Income and Expense Trends</CardTitle>
+        <CardTitle className="text-md sm:text-lg flex items-center gap-1">
+          <TrendingUpDown className="size-3 sm:size-4.5" /> Income v/s Expense
+        </CardTitle>
         <CardDescription className="text-xs sm:text-md">
           Your income and expense trends
         </CardDescription>

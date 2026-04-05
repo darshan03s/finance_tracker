@@ -22,7 +22,7 @@ import {
 import { ExpenseCategory, IncomeCategory } from '@/types';
 import { Button } from '../ui/button';
 import { BanknoteArrowDown, BanknoteArrowUp, ChartColumnStacked } from 'lucide-react';
-import { capitalize } from '@/lib/utils';
+import { capitalize, getColorHex } from '@/lib/utils';
 import { HoverTooltip } from '../wrappers';
 import { useFinanceStore } from '@/stores/finance-store';
 import { useDateStore } from '@/stores/date-store';
@@ -39,7 +39,7 @@ const ExpenseChart = ({
   categories.forEach((cat) => {
     chartConfig[cat] = {
       label: cat.charAt(0).toUpperCase() + cat.slice(1),
-      color: cat === 'food' ? '#f59e0b' : cat === 'rent' ? '#ef4444' : '#a855f7'
+      color: getColorHex(cat)
     };
   });
 
@@ -84,7 +84,7 @@ const IncomeChart = ({
   categories.forEach((cat) => {
     chartConfig[cat] = {
       label: cat.charAt(0).toUpperCase() + cat.slice(1),
-      color: cat === 'freelance' ? '#10b981' : '#3b82f6'
+      color: getColorHex(cat)
     };
   });
 

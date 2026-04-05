@@ -14,6 +14,8 @@ export type IncomeCategory = 'salary' | 'freelance';
 
 export type Category = IncomeCategory | ExpenseCategory;
 
+export type HexColor = IncomeCategory | ExpenseCategory | 'balance' | 'income' | 'expense';
+
 export type MonthlyTotals = {
   income: number;
   expense: number;

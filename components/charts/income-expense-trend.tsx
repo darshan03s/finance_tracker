@@ -24,15 +24,16 @@ import { HoverTooltip } from '../wrappers';
 import { Button } from '../ui/button';
 import { CalendarDays, CalendarRange, TrendingUpDown } from 'lucide-react';
 import { useDateStore } from '@/stores/date-store';
+import { getColorHex } from '@/lib/utils';
 
 const chartConfig = {
   income: {
     label: 'Income',
-    color: '#22c55e'
+    color: getColorHex('income')
   },
   expense: {
     label: 'Expense',
-    color: '#ef4444'
+    color: getColorHex('expense')
   }
 } satisfies ChartConfig;
 

@@ -1,3 +1,5 @@
+import { HEX_COLORS } from '@/config';
+import { HexColor } from '@/types';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -14,4 +16,8 @@ export function formatCurrency(amount: number) {
     style: 'currency',
     currency: 'INR'
   }).format(amount);
+}
+
+export function getColorHex(v: HexColor) {
+  return HEX_COLORS[v];
 }

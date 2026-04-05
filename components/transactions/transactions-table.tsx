@@ -6,24 +6,15 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
-import { capitalize, formatCurrency } from '@/lib/utils';
+import { capitalize, formatCurrency, getColorHex } from '@/lib/utils';
 import { useRoleStore } from '@/stores/role-store';
-import { Transaction } from '@/types';
+import { HexColor, Transaction } from '@/types';
 import { Pencil, Trash } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useState } from 'react';
 import EditTransactionDialog from './edit-transactions';
 import { useFinanceStore } from '@/stores/finance-store';
 import { ConfirmDialog } from '../wrappers';
-
-function bg(cat: string) {
-  if (cat === 'food') return '#f59e0b';
-  if (cat === 'rent') return '#ef4444';
-  if (cat === 'misc') return '#a855f7';
-  if (cat === 'salary') return '#3b82f6';
-  if (cat === 'freelance') return '#10b981';
-  if (cat === 'balance') return '#155dfc';
-}
 
 function getDeleteDescription(txn: Transaction) {
   return `${capitalize(txn.type)} "${capitalize(txn.name)}" (${capitalize(
@@ -75,7 +66,7 @@ const TransactionsTable = ({ transactions }: { transactions: Transaction[] }) =>
             <TableCell>
               <span
                 className={`text-white p-1 px-2 rounded-full`}
-                style={{ backgroundColor: bg(txn.category) }}
+                style={{ backgroundColor: getColorHex(txn.category as Partial<HexColor>) }}
               >
                 {capitalize(txn.category)}
               </span>

@@ -1,13 +1,13 @@
 import { Input } from '../ui/input';
 import TransactionsTable from './transactions-table';
-import { Filters, Transaction } from '@/types';
+import { TransactionTableFilters, Transaction } from '@/types';
 import { useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import FilterDropdown from './filter-dropdown';
 
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   const [search, setSearch] = useState('');
-  const [filters, setFilters] = useState<Filters>({
+  const [filters, setFilters] = useState<TransactionTableFilters>({
     type: [],
     categories: []
   });

@@ -10,15 +10,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { capitalize } from '@/lib/utils';
 import { useFinanceStore } from '@/stores/finance-store';
-import { Filters } from '@/types';
+import { TransactionTableFilters } from '@/types';
 import { Filter } from 'lucide-react';
 
 const FilterDropdown = ({
   filters,
   setFilters
 }: {
-  filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  filters: TransactionTableFilters;
+  setFilters: React.Dispatch<React.SetStateAction<TransactionTableFilters>>;
 }) => {
   const expenseCategories = useFinanceStore((s) => s.categories.expense);
   const incomeCategories = useFinanceStore((s) => s.categories.income);

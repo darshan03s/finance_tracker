@@ -19,12 +19,6 @@ export type MonthlyTotals = {
   expense: number;
 };
 
-export type MonthlyBalance = {
-  year: number;
-  month: number;
-  balance: number;
-};
-
 export type MonthlyChartData = {
   month: string;
   income: number;
@@ -37,7 +31,7 @@ export type DailyChartData = {
   expense: number;
 };
 
-export type Filters = {
+export type TransactionTableFilters = {
   type: ('income' | 'expense')[];
   categories: string[];
 };

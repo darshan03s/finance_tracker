@@ -23,7 +23,6 @@ import LargestExpense from './insights/largest-expense';
 import Transactions from './transactions/transactions';
 import DatePicker from './date-picker';
 import { useDateStore } from '@/stores/date-store';
-import { Calendar } from 'lucide-react';
 
 const Main = ({ mockData }: { mockData: FinanceData }) => {
   const date = useDateStore((s) => s.date);

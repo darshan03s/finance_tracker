@@ -8,10 +8,10 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { Button } from '../ui/button';
-import AddExpenseDialog from './add-expense-dialog';
 import { HoverTooltip } from '../wrappers';
 import { BanknoteArrowDown, CalendarDays, CalendarRange } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
+import AddTransaction from './add-transaction';
 
 const ExpenseCard = ({
   expenseThisMonth,
@@ -70,7 +70,7 @@ const ExpenseCard = ({
           </p>
         </CardContent>
       </Card>
-      <AddExpenseDialog open={open} setOpen={setOpen} />
+      <AddTransaction open={open} setOpen={setOpen} type="expense" />
     </>
   );
 };

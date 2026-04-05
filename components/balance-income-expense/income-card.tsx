@@ -8,10 +8,10 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { Button } from '../ui/button';
-import AddIncomeDialog from './add-income-dialog';
 import { BanknoteArrowUp, CalendarDays, CalendarRange } from 'lucide-react';
 import { HoverTooltip } from '../wrappers';
 import { formatCurrency } from '@/lib/utils';
+import AddTransaction from './add-transaction';
 
 const IncomeCard = ({
   incomeThisMonth,
@@ -70,7 +70,7 @@ const IncomeCard = ({
           </p>
         </CardContent>
       </Card>
-      <AddIncomeDialog open={open} setOpen={setOpen} />
+      <AddTransaction open={open} setOpen={setOpen} type="income" />
     </>
   );
 };

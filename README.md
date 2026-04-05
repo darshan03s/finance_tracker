@@ -1,5 +1,7 @@
 # Finance Dashboard
 
+![Demo](https://res.cloudinary.com/dqzusd5rw/image/upload/v1775404395/screenshot-studio-1775402105697_slbwiz.png)
+
 A clean, interactive finance dashboard built using Next.js, TypeScript, Zustand, and TailwindCSS. This project focuses on intuitive UI design, structured state management, and meaningful financial insights.
 
 **Live:** https://finance-tracker.darshans.site

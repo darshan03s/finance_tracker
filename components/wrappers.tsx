@@ -38,7 +38,7 @@ export const ConfirmDialog = ({
   title,
   description,
   cancelButtonText = 'Cancel',
-  sucessButtonText = 'Continue',
+  successButtonText = 'Continue',
   onCancel = () => {},
   onSuccess = () => {}
 }: {
@@ -46,7 +46,7 @@ export const ConfirmDialog = ({
   title: string;
   description: string;
   cancelButtonText?: string;
-  sucessButtonText?: string;
+  successButtonText?: string;
   onCancel?: (...params: unknown[]) => unknown;
   onSuccess?: (...params: unknown[]) => unknown;
 }) => {
@@ -60,7 +60,7 @@ export const ConfirmDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>{cancelButtonText}</AlertDialogCancel>
-          <AlertDialogAction onClick={onSuccess}>{sucessButtonText}</AlertDialogAction>
+          <AlertDialogAction onClick={onSuccess}>{successButtonText}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

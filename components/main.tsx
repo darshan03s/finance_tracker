@@ -61,7 +61,7 @@ const Main = ({ mockData }: { mockData: FinanceData }) => {
         <DatePicker />
       </div>
       <div className="space-y-4">
-        <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-10">
+        <div className="balance-income-expense grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-5 sm:px-10">
           <BalanceCard balance={balance} />
           <IncomeCard incomeThisMonth={monthlyTotals.income} incomeToday={todaysIncome} />
           <div className="sm:col-span-2 lg:col-span-1">
@@ -69,7 +69,7 @@ const Main = ({ mockData }: { mockData: FinanceData }) => {
           </div>
         </div>
 
-        <div className="charts grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 px-10 gap-4">
+        <div className="charts grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 px-5 sm:px-10 gap-4">
           <div className="h-72">
             <IncomeExpenseTrend
               monthlyChartData={monthlyChartData}
@@ -86,7 +86,7 @@ const Main = ({ mockData }: { mockData: FinanceData }) => {
           </div>
         </div>
 
-        <div className="insights grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-10 gap-4">
+        <div className="insights grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-5 sm:px-10 gap-4">
           <HighestExpenseCategory data={highestExpense} />
           <MonthlyComparison data={expenseComparison} />
           <div className="sm:col-span-2 lg:col-span-1">
@@ -96,7 +96,7 @@ const Main = ({ mockData }: { mockData: FinanceData }) => {
 
         <h1 className="text-lg md:text-2xl text-center py-4">Transactions</h1>
 
-        <div className="transactions px-10 md:px-20 space-y-4">
+        <div className="transactions px-5 sm:px-10 md:px-20 space-y-4">
           <Transactions transactions={transactions} />
         </div>
       </div>

@@ -21,6 +21,7 @@ const DatePicker = () => {
           selected={date}
           defaultMonth={date ?? new Date()}
           mode="single"
+          disabled={(date) => date > new Date()}
           className="rounded-lg border"
         />
       </PopoverContent>

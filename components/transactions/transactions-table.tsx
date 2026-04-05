@@ -12,7 +12,7 @@ import { HexColor, Transaction } from '@/types';
 import { Pencil, Trash } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useState } from 'react';
-import EditTransactionDialog from './edit-transactions';
+import EditTransactionDialog from './edit-transaction';
 import { useFinanceStore } from '@/stores/finance-store';
 import { ConfirmDialog } from '../wrappers';
 

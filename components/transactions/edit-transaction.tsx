@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { Transaction } from '@/types';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { IncomeCategory, Transaction } from '@/types';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useFinanceStore } from '@/stores/finance-store';
@@ -20,35 +20,31 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { capitalize } from '@/lib/utils';
 
-const AddTransaction = ({
+const EditTransactionDialog = ({
   open,
   setOpen,
-  type
+  txn
 }: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  type: 'income' | 'expense';
+  txn: Transaction;
 }) => {
   const categories = useFinanceStore((s) => s.categories);
-  const addTransaction = useFinanceStore((s) => s.addTransaction);
-  const selectCategories = type === 'income' ? categories.income : categories.expense;
-  const defaultTransactionState = {
-    id: '',
-    name: '',
-    date: new Date().toISOString(),
-    type: type,
-    category: '',
-    amount: 0,
-    note: ''
-  };
-  const [transaction, setTransaction] = useState<Transaction>(defaultTransactionState);
+  const updateTransaction = useFinanceStore((s) => s.updateTransaction);
+  const allCategories = [...categories.income, ...categories.expense];
+  const [transaction, setTransaction] = useState<Transaction>(txn);
   const defaultErrorState = {
     name: false,
     amount: false,
     category: false
   };
   const [error, setError] = useState(defaultErrorState);
+
+  useEffect(() => {
+    setTransaction(txn);
+  }, [txn]);
 
   const handleChange = (field: keyof Transaction, value: string | number) => {
     setError(defaultErrorState);
@@ -92,22 +88,19 @@ const AddTransaction = ({
     }
 
     const newTransaction: Transaction = {
-      ...transaction,
-      id: crypto.randomUUID()
+      ...transaction
     };
 
-    addTransaction(newTransaction);
+    updateTransaction(newTransaction);
     setOpen(false);
-    setTransaction(defaultTransactionState);
-    useFinanceStore.setState({ categoryBreakdownChartType: type });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add {type}</DialogTitle>
-          <DialogDescription>Add new {type} transaction</DialogDescription>
+          <DialogTitle>Edit transaction</DialogTitle>
+          <DialogDescription>Update transaction details</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-4">
@@ -116,10 +109,10 @@ const AddTransaction = ({
               Required
             </span>
             <Input
-              className="text-xs sm:text-sm"
               type="text"
               placeholder="Name"
               value={transaction.name}
+              className="text-xs sm:text-sm"
               onChange={(e) => handleChange('name', e.target.value)}
             />
           </div>
@@ -130,8 +123,8 @@ const AddTransaction = ({
             </span>
             <Input
               type="number"
-              className="text-xs sm:text-sm"
               placeholder="Amount"
+              className="text-xs sm:text-sm"
               value={transaction.amount || ''}
               onChange={(e) => handleChange('amount', Number(e.target.value))}
             />
@@ -143,16 +136,24 @@ const AddTransaction = ({
             </span>
             <Select
               value={transaction.category}
-              onValueChange={(val) => handleChange('category', val)}
+              onValueChange={(val) => {
+                const isIncome = categories.income.includes(val as IncomeCategory);
+
+                setTransaction((prev) => ({
+                  ...prev,
+                  category: val,
+                  type: isIncome ? 'income' : 'expense'
+                }));
+              }}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {selectCategories.map((cat) => (
+                  {allCategories.map((cat) => (
                     <SelectItem value={cat} key={cat}>
-                      {cat.slice(0, 1).toUpperCase().concat(cat.slice(1))}
+                      {capitalize(cat)}
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -161,14 +162,14 @@ const AddTransaction = ({
           </div>
 
           <Input
-            className="text-xs sm:text-sm"
             placeholder="Note (optional)"
+            className="text-xs sm:text-sm"
             value={transaction.note}
             onChange={(e) => handleChange('note', e.target.value)}
           />
 
           <Button className="w-full mt-2" onClick={handleSubmit}>
-            Add {type}
+            Update
           </Button>
         </div>
       </DialogContent>
@@ -176,4 +177,4 @@ const AddTransaction = ({
   );
 };
 
-export default AddTransaction;
+export default EditTransactionDialog;

@@ -142,9 +142,10 @@ export function getDailyIncomeExpenseTrend(
     }
   }
 
-  const today = new Date();
   const maxDay =
-    month === today.getMonth() && year === today.getFullYear() ? today.getDate() : daysInMonth;
+    month === referenceDate.getMonth() && year === referenceDate.getFullYear()
+      ? referenceDate.getDate()
+      : daysInMonth;
 
   return Array.from({ length: maxDay }, (_, i) => ({
     day: String(i + 1),

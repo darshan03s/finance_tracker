@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Analytics } from '@vercel/analytics/next';
+import { DOMAIN_URL } from '@/config';
 
 const fontSans = Oxanium({
   subsets: ['latin'],
@@ -22,8 +23,53 @@ const fontMono = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: 'Finance Tracker',
-  description: 'Tracking finance made easy'
+  title: 'Finance tracker',
+  description: 'Tracking finance made easy',
+  keywords: ['Finance', 'Finance tracker'],
+  robots: {
+    index: true,
+    follow: true
+  },
+  metadataBase: new URL(DOMAIN_URL),
+  icons: {
+    icon: '/favicon.ico'
+  },
+  authors: [{ name: 'Darshan S', url: 'https://darshans.site' }],
+  creator: 'Darshan S',
+  publisher: 'Darshan S',
+  applicationName: 'Finance tracker',
+  alternates: {
+    canonical: DOMAIN_URL
+  },
+  openGraph: {
+    title: 'Finance tracker',
+    description: 'Tracking finance made easy',
+    url: DOMAIN_URL,
+    siteName: 'Finance tracker',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: `${DOMAIN_URL}/api/og`,
+        width: 1200,
+        height: 630,
+        alt: 'Finance tracker'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Finance tracker',
+    description: 'Tracking finance made easy',
+    images: [
+      {
+        url: `${DOMAIN_URL}/api/twitter-og`,
+        width: 1200,
+        height: 628,
+        alt: 'Finance tracker'
+      }
+    ]
+  }
 };
 
 export default function RootLayout({

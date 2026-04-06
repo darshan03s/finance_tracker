@@ -108,6 +108,9 @@ const AddTransaction = ({
         <DialogHeader>
           <DialogTitle>Add {type}</DialogTitle>
           <DialogDescription>Add new {type} transaction</DialogDescription>
+          <p className="text-xs text-muted-foreground font-bold">
+            Transactions can be added for current day only
+          </p>
         </DialogHeader>
 
         <div className="flex flex-col gap-4">

@@ -52,10 +52,19 @@ const ManageData = () => {
 
     try {
       const text = await file.text();
-      const parsed = JSON.parse(text) as FinanceData;
+      const raw = JSON.parse(text);
 
-      if (!parsed.transactions || !parsed.categories || typeof parsed.balance !== 'number') {
+      const parsed: FinanceData = raw.state ?? raw;
+
+      if (
+        !parsed.transactions ||
+        !parsed.categories ||
+        typeof parsed.balance !== 'number' ||
+        !parsed.categories.income ||
+        !parsed.categories.expense
+      ) {
         toast.error('Invalid format');
+        return;
       }
 
       useFinanceStore.setState({
